@@ -1,0 +1,519 @@
+<h2 mat-dialog-title>Dịch vụ</h2>
+<mat-dialog-content class="mat-typography">
+  <!-- Ten cua dich vu -->
+  <mat-form-field appearance="fill">
+    <mat-label>Tên dịch vụ</mat-label>
+    <input matInput [(ngModel)]="data.dichVu.tenDV" />
+  </mat-form-field>
+  <br />
+  <!-- Anh -->
+  <h3>File ảnh</h3>
+  <input [(ngModel)]="data.dichVu.imgDichVu" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+  <br /><br />
+
+  <!-- Loai dich vu -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nhóm dịch vụ</mat-label>
+    <mat-select [(ngModel)]="data.dichVu.maNhomDV">
+      <mat-option
+        *ngFor="let nhomDichVu of listNhomDichVu"
+        [value]="nhomDichVu.maNhomDV"
+      >
+        {{ nhomDichVu.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+
+  <!-- Mo ta -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Mô tả</mat-label>
+    <textarea
+      #moTa
+      (keyup)="ChuoiThanhMangMoTa($event)"
+      matInput
+      placeholder="Ví dụ: &#10;Dịch vụ giá cả phải chăng &#10;Dịch vụ uy tín chất lượng"
+    >{{data.dichVu.moTa?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+
+  <!-- Danh sach cac thiet bi sua chua  -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Danh sách các thiết bị sửa chữa</mat-label>
+    <textarea
+      #danhSachSuaChua
+      (keyup)="ChuoiThanhMangDanhSachSuaChua($event)"
+      matInput
+      placeholder="Ví dụ: &#10;Điều hòa một chiều &#10;Điều hòa hai chiều"
+    >{{data.dichVu.danhSachSuaChua?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+
+  <!-- Danh sach dich vu, loi ich se cung cap  -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Danh sách dịch vụ </mat-label>
+    <textarea
+      #danhSachDV
+      (keyup)="ChuoiThanhMangDanhSachDV($event)"
+      matInput
+      placeholder="Ví dụ: &#10;Sửa chữa rò rỉ đường ống nước &#10;Lắp đặt đường ống nước"
+    >{{data.dichVu.danhSachDV?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+
+  <!-- Ly do can sua  -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Lý do cần sửa </mat-label>
+    <textarea
+      #lyDoCanSua
+      (keyup)="ChuoiThanhMangLyDoCanSua($event)"
+      matInput
+      placeholder="Nêu ra các nguyên nhân khiến người dùng muốn sử dụng dịch vụ"
+    >{{data.dichVu.lyDoCanSua?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+  <!-- Nhan biet dich vu  -->
+  <mat-accordion>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Nhận biết dịch vụ</mat-panel-title>
+        <mat-panel-description>
+          Nêu ra các dấu hiệu nhận biết để người dùng có thể mô tả khi gọi thợ
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Phan noi dung o day -->
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 10%">STT</th>
+            <th scope="col" style="width: 30%">Tên nhận biết</th>
+            <th scope="col" style="width: 40%">Dấu hiệu</th>
+            <th scope="col" style="width: 20%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let nhanBietDichVu of data.listNhanBietDichVu; index as i"
+          >
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ nhanBietDichVu.tenNhanBiet }}</td>
+            <td>
+              <span *ngFor="let dauHieu of nhanBietDichVu.dauHieu"
+                >{{ dauHieu }}<br
+              /></span>
+            </td>
+            <td>
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="XoaNhanBiet(i)"
+                [disabled]="!trangThaiNhanBiet"
+              >
+                XÓA
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="SuaNhanBiet(i)"
+                style="margin-left: 10px"
+              >
+                SỬA
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Tên nhận biết</mat-label>
+        <input
+          [(ngModel)]="nhanBietDichVu.tenNhanBiet"
+          matInput
+          placeholder="Ví dụ: Bể đường ống nước"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 500px">
+        <mat-label>Dấu hiệu nhận biết</mat-label>
+        <textarea
+          #dauHieu
+          (keyup)="ChuoiThanhMangNBDV($event)"
+          matInput
+          placeholder="Ví dụ: &#10;Có nước rỉ ra từ đường ống"
+        ></textarea>
+      </mat-form-field>
+      <br />
+      <div *ngIf="trangThaiNhanBiet; else nutLuuNhanBiet">
+        <button mat-raised-button color="primary" (click)="ThemNhanBiet()">
+          THÊM
+        </button>
+      </div>
+      <ng-template #nutLuuNhanBiet>
+        <div>
+          <button mat-raised-button color="accent" (click)="LuuNhanBiet()">
+            LƯU
+          </button>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br />
+  <!-- Bang gia cong viec  -->
+  <mat-accordion>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Bảng giá công việc</mat-panel-title>
+        <mat-panel-description>
+          Nêu ra bảng giá công việc
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Phan noi dung o day -->
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên tham khảo</th>
+            <th scope="col">Nội dung giá</th>
+            <th scope="col">Ghi chú</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let giaCongViec of data.listGiaCongViec; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ giaCongViec.tenThamKhao }}</td>
+            <td>{{ giaCongViec.noiDungGia }}</td>
+            <td>{{ giaCongViec.ghiChu }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="XoaGiaCongViec(i)"
+                [disabled]="!trangThaiGiaCongViec"
+              >
+                XÓA
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="SuaGiaCongViec(i)"
+                style="margin-left: 10px"
+              >
+                SỬA
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Tên tham khảo</mat-label>
+        <input matInput [(ngModel)]="giaCongViec.tenThamKhao" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Nội dung giá</mat-label>
+        <input matInput [(ngModel)]="giaCongViec.noiDungGia" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Ghi chú</mat-label>
+        <input matInput [(ngModel)]="giaCongViec.ghiChu" />
+      </mat-form-field>
+      <br />
+      <div *ngIf="trangThaiGiaCongViec; else nutLuuGiaCongViec">
+        <button mat-raised-button color="primary" (click)="ThemGiaCongViec()">
+          THÊM
+        </button>
+      </div>
+      <ng-template #nutLuuGiaCongViec>
+        <div>
+          <button mat-raised-button color="accent" (click)="LuuGiaCongViec()">
+            LƯU
+          </button>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br />
+  <!-- Bang gia vat tu  -->
+  <mat-accordion>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Bảng giá vật tư</mat-panel-title>
+        <mat-panel-description> Nêu ra giá vật tư </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Phan noi dung o day -->
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên vật tư</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Nhóm</th>
+            <th scope="col">Phí dịch vụ</th>
+            <th scope="col">Triệu chứng</th>
+            <th scope="col">Bảo hành</th>
+            <th scope="col">Ghi chú</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let giaVatTu of data.listGiaVatTu; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ giaVatTu.tenVatTu }}</td>
+            <td>{{ giaVatTu.giaVatTu }}</td>
+            <td>{{ giaVatTu.nhomVT }}</td>
+            <td>{{ giaVatTu.phiDV }}</td>
+            <td>{{ giaVatTu.trieuChung }}</td>
+            <td>{{ giaVatTu.baoHanhVT }}</td>
+            <td>{{ giaVatTu.ghiChu }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="XoaGiaVatTu(i)"
+                [disabled]="!trangThaiGiaVatTu"
+              >
+                XÓA
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="SuaGiaVatTu(i)"
+                style="margin-left: 10px"
+              >
+                SỬA
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Tên vật tư</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.tenVatTu" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Giá</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.giaVatTu" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Nhóm</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.nhomVT" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Phí dịch vụ</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.phiDV" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Triệu chứng</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.trieuChung" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Bảo hành</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.baoHanhVT" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Ghi chú</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.ghiChu" />
+      </mat-form-field>
+      <br />
+      <div *ngIf="trangThaiGiaVatTu; else nutLuuGiaVatTu">
+        <button mat-raised-button color="primary" (click)="ThemGiaVatTu()">
+          THÊM
+        </button>
+      </div>
+      <ng-template #nutLuuGiaVatTu>
+        <div>
+          <button mat-raised-button color="accent" (click)="LuuGiaVatTu()">
+            LƯU
+          </button>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br />
+
+  <!-- Bang gia cong tho  -->
+  <mat-accordion>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Bảng giá công thợ</mat-panel-title>
+        <mat-panel-description>
+          Nêu ra giá của thợ khi làm việc
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Phan noi dung o day -->
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên công việc</th>
+            <th scope="col">Đơn vị</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Giá thay mới</th>
+            <th scope="col">Phí dịch vụ</th>
+            <th scope="col">Loại</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let giaCongTho of data.listGiaCongTho; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ giaCongTho.tenCongTho }}</td>
+            <td>{{ giaCongTho.DVT }}</td>
+            <td>{{ giaCongTho.giaCongTho }}</td>
+            <td>{{ giaCongTho.giaThayVT }}</td>
+            <td>{{ giaCongTho.phiDV }}</td>
+            <td>{{ giaCongTho.DVT2 }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="XoaGiaCongTho(i)"
+                [disabled]="!trangThaiGiaCongTho"
+              >
+                XÓA
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="SuaGiaCongTho(i)"
+                style="margin-left: 10px"
+              >
+                SỬA
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Tên công việc</mat-label>
+        <input matInput [(ngModel)]="giaCongTho.tenCongTho" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Đơn vị</mat-label>
+        <input matInput [(ngModel)]="giaCongTho.DVT" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Giá</mat-label>
+        <input matInput [(ngModel)]="giaCongTho.giaCongTho" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Giá thay mới</mat-label>
+        <input matInput [(ngModel)]="giaCongTho.giaThayVT" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Phí dịch vụ</mat-label>
+        <input matInput [(ngModel)]="giaCongTho.phiDV" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Loại</mat-label>
+        <input matInput [(ngModel)]="giaCongTho.DVT2" />
+      </mat-form-field>
+      <br />
+      <div *ngIf="trangThaiGiaCongTho; else nutLuuGiaCongTho">
+        <button mat-raised-button color="primary" (click)="ThemGiaCongTho()">
+          THÊM
+        </button>
+      </div>
+      <ng-template #nutLuuGiaCongTho>
+        <div>
+          <button mat-raised-button color="accent" (click)="LuuGiaCongTho()">
+            LƯU
+          </button>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br />
+  <!-- Cam ket -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Cam kết</mat-label>
+    <textarea
+      #camKet
+      (keyup)="ChuoiThanhMangCamKet($event)"
+      matInput
+      placeholder="Nêu ra các cam kết"
+    >{{data.dichVu.camKet?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+  <!-- Luu y -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Lưu ý</mat-label>
+    <textarea
+      #luuY
+      (keyup)="ChuoiThanhMangLuuY($event)"
+      matInput
+      placeholder="Nêu ra các lưu ý"
+    >{{data.dichVu.luuY?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+  <!-- Ghi chu su dung -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Ghi chú sử dụng</mat-label>
+    <textarea
+      #ghiChuSuDung
+      (keyup)="ChuoiThanhMangGhiChuSuDung($event)"
+      matInput
+      placeholder="Nêu ra các ghi chú khi sử dụng"
+    >{{data.dichVu.ghiChuSuDung?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+  <!-- Tieu chi dich vu -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Tiêu chí dịch vụ</mat-label>
+    <textarea
+      #tieuChiDV
+      (keyup)="ChuoiThanhMangTieuChiDV($event)"
+      matInput
+      placeholder="Nêu ra các tiêu chí của dịch vụ"
+    >{{data.dichVu.tieuChiDV?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+  <!-- Quy trinh tiep nhan -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Quy trình tiếp nhận</mat-label>
+    <textarea
+      #quyTrinhTiepNhan
+      (keyup)="ChuoiThanhMangQuyTrinhTiepNhan($event)"
+      matInput
+      placeholder="Nêu ra quy trình tiếp nhận của dịch vụ"
+    >{{data.dichVu.quyTrinhTiepNhan?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+  <!-- Quy trinh bao duong -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Quy trình bảo dưỡng</mat-label>
+    <textarea
+      #quyTrinhBD
+      (keyup)="ChuoiThanhMangQuyTrinhBD($event)"
+      matInput
+      placeholder="Nêu ra quy trình bảo dưỡng của dịch vụ"
+    >{{data.dichVu.quyTrinhBD?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+  <!-- Luu y su dung  -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Lưu ý sử dụng</mat-label>
+    <textarea
+      #luuYSuDung
+      (keyup)="ChuoiThanhMangLuuYSuDung($event)"
+      matInput
+      placeholder="Nêu ra các lưu ý khi sử dụng dịch vụ"
+    >{{data.dichVu.luuYSuDung?.join('\n')}}</textarea>
+  </mat-form-field>
+  <br />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

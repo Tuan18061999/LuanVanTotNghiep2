@@ -1,0 +1,40 @@
+<div class="container-fluid page">
+  <div class="page__box p-3 mt-2">Nhóm dịch vụ</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div style="padding-bottom: 25px;">
+      <button (click)="ThemNhomDichVu()" mat-raised-button color="primary" >THÊM NHÓM DỊCH VỤ</button>
+    </div>
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 15%;">Mã nhóm</th>
+            <th scope="col" style="width: 55%;">Tên nhóm</th>
+            <th style="width: 20%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let nhomDichVu of listNhomDichVu">
+            <td>{{nhomDichVu.maNhomDV}}</td>
+            <td>{{nhomDichVu.name}}</td>
+            <td>
+              <button (click)="CapNhatNhomDichVu($event,nhomDichVu)" mat-raised-button color="primary" style="height: 30px; " >
+                CẬP NHẬT
+              </button>
+              <button (click)="XoaNhomDichVu($event,nhomDichVu)" mat-raised-button color="warn" style="height: 30px; margin-left: 30px;" >
+                XÓA
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

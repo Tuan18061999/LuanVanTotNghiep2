@@ -1,0 +1,137 @@
+<br /><br />
+<div class="container- fluid" style="padding-right: 50px; padding-left: 50px">
+  <div class="row">
+    <div class="col-md-6">
+      <h3 style="color: red">Về chúng tôi</h3>
+      <h1>Chúng tôi cung cấp giải pháp hiệu quả về chi phí cho bạn.</h1>
+      <p>
+        Có nhiều sự cố, vấn đề xảy ra với thiết bị trong căn nhà của bạn. Hãy
+        liên hệ với chúng tôi, chúng tôi có đội ngũ cung cấp dịch vụ chuyên
+        nghiệp với thợ nhiều năm kinh nghiệm sẽ giải quyết mọi vấn đề cho bạn.
+      </p>
+      <img
+        mat-card-image
+        src="../assets/image/anh-service.JPG"
+        style="width: 100%"
+      />
+      <mat-list>
+        <div mat-subheader style="font-weight: bold">Chúng tôi cam kết</div>
+        <mat-list-item>
+          <mat-icon mat-list-icon>done_all</mat-icon>
+          <div mat-line>
+            Đội ngũ cung cấp dịch vụ chuyên nghiệp với thợ nhiều năm kinh nghiệm
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>done_all</mat-icon>
+          <div mat-line>
+            Khách hàng hài lòng về dịch vụ, mọi chi phí rõ ràng
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>done_all</mat-icon>
+          <div mat-line>
+            Bảo hành khi có sự cố, giải quyết mọi thắc mắc, khiếu nại.
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="col-md-6">
+      <img
+        mat-card-image
+        src="../assets/image/anh-sua-chua.jpg"
+        style="width: 100%"
+      />
+    </div>
+  </div>
+</div>
+
+<div style="padding-right: 50px; padding-left: 50px">
+  <!-- ---------------------------------------------------------------------- -->
+  <mat-grid-list cols="1" rowHeight="100px">
+    <mat-grid-tile>
+      <mat-grid-tile-footer style="background-color: lightskyblue"
+        ><span style="font-size: 20px"
+          >Dịch vụ - Tin tức</span
+        ></mat-grid-tile-footer
+      >
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="4" rowHeight="430px" gutterSize="10px">
+    <mat-grid-tile [colspan]="1" [rowspan]="2" style="margin-top: 10px">
+      <mat-list class="list">
+        <div mat-subheader style="color: red; font-size: 20px">
+          <b>NHÓM THÔNG TIN DỊCH VỤ</b>
+        </div>
+        <mat-list-item>Sửa điều hòa</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Sửa máy giặt</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Sửa chữa Tivi</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Sửa chữa tủ lạnh</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Sửa bình nóng lạnh</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Sửa quạt điện</mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader style="color: red; font-size: 20px">
+          THỢ SỬA CHỮA
+        </div>
+        <app-menu-dich-vu></app-menu-dich-vu>
+      </mat-list>
+    </mat-grid-tile>
+
+    <!-- Tin tuc -->
+    <mat-grid-tile *ngFor="let tinTuc of listTinTucGioiHan">
+      <mat-card class="example-card">
+        <mat-card-header style="height: 100px">
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{ tinTuc.tieuDeChinh }}</mat-card-title>
+          <mat-card-subtitle>Cập nhật bởi: Admin</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          style="height: 150px; align-items: center"
+          *ngIf="tinTuc.imgTieuDe != null"
+          mat-card-image
+          src="{{ tinTuc.imgTieuDe }}"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p *ngFor="let chuThich of tinTuc.chuThich | slice: 0:1">
+            {{ chuThich | slice: 0:100 }}...
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <mat-chip-list>
+            <mat-chip
+              (click)="ChuyenToiChiTietTin(tinTuc)"
+              color="primary"
+              selected
+              >Xem tiếp</mat-chip
+            >
+          </mat-chip-list>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div class="container- fluid" style="padding-right: 50px; padding-left: 50px">
+  <div class="row">
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-4">
+      <div aria-label="Page navigation example" >
+        <ul class="pagination justify-content-end" style="display: inline;">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" (click)="PhanTrang(1)">1</a></li>
+          <li class="page-item"><a class="page-link" (click)="PhanTrang(2)">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </div>
+      <br><br><br>
+    </div>
+  </div>
+
+</div>
+

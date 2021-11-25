@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Admin account</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput [(ngModel)]="data.password">
+  </mat-form-field>
+  <br>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

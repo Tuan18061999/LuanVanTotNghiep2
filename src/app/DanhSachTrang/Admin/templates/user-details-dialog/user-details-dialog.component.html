@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>User account</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-list>
+    <div mat-subheader>Details</div>
+    <mat-list-item>
+      <mat-icon mat-list-icon>badge</mat-icon>
+      <div mat-line>Name: {{data.name}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>vpn_key</mat-icon>
+      <div mat-line>Password: {{data.password}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <div mat-line>Phone: {{data.phone}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>person_outline</mat-icon>
+      <div mat-line>Gender: {{data.gender}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>location_on</mat-icon>
+      <div mat-line>District: {{data.address.district || ""}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>location_on</mat-icon>
+      <div mat-line>Number street: {{data.address.number_street || ""}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>location_on</mat-icon>
+      <div mat-line>Province: {{data.address.province || ""}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>location_on</mat-icon>
+      <div mat-line>Ward: {{data.address.ward || ""}}</div>
+    </mat-list-item>
+  </mat-list>
+  <br>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

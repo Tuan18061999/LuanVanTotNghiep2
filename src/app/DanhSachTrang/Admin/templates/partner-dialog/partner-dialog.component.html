@@ -1,0 +1,90 @@
+<h2 mat-dialog-title>Partner account</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-list>
+    <div mat-subheader>Details</div>
+    <mat-list-item>
+      <mat-icon mat-list-icon>badge</mat-icon>
+      <div mat-line>Trạng thái tài khoản: {{ data.partner.accountStatus }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>badge</mat-icon>
+      <div mat-line>Trạng thái hoạt động: {{ data.partner.activeStatus }}</div>
+    </mat-list-item>
+
+
+    <mat-list-item>
+      <mat-icon mat-list-icon>badge</mat-icon>
+      <div mat-line>Dịch vụ cung cấp</div>
+    </mat-list-item>
+    <ul>
+      <li *ngFor="let dichVu of data.partner.choicesServiceList">
+        {{ dichVu }}
+      </li>
+    </ul>
+
+    <mat-list-item>
+      <mat-icon mat-list-icon>event</mat-icon>
+      <div mat-line>Ngày tạo: {{ data.partner.dmyOrder }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>schedule</mat-icon>
+      <div mat-line>Giờ tạo: {{ data.partner.hmsOrder }}</div>
+    </mat-list-item>
+
+    <mat-list-item>
+      <mat-icon mat-list-icon>schedule</mat-icon>
+      <div mat-line>Ảnh CMND mặt trước</div>
+    </mat-list-item>
+    <img style="width: 100%;" src={{data.partner.issuesImg1Link}} alt="">
+    <mat-list-item>
+      <mat-icon mat-list-icon>schedule</mat-icon>
+      <div mat-line>Ảnh CMND mặt sau</div>
+    </mat-list-item>
+    <img style="width: 100%;" src={{data.partner.issuesImg2Link}} alt="">
+
+    <mat-list-item>
+      <mat-icon mat-list-icon>badge</mat-icon>
+      <div mat-line>Tên: {{ data.partner.name }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>vpn_key</mat-icon>
+      <div mat-line>Mật khẩu: {{ data.partner.password }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <div mat-line>Điện thoại: {{ data.partner.phone }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <div mat-line>Sao: {{ data.partner.star }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <div mat-line>Địa chỉ cửa hàng: {{ data.partner.storeAddress }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <div mat-line>Tên cửa hàng: {{ data.partner.storeName }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <div mat-line>Số đơn: {{ data.partner.totalOrders }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <div mat-line>Mail: {{ data.partner.userEmail }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>person_outline</mat-icon>
+      <div mat-line>Giới tính: {{ data.partner.userGender }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>person_outline</mat-icon>
+      <div mat-line>ID: {{ data.partner.userIDNumber }}</div>
+    </mat-list-item>
+  </mat-list>
+  <br />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

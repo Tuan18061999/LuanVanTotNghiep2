@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <mat-list>
+      <mat-list-item>
+        <mat-icon color="warn" mat-list-icon class="icon-display">{{
+          nhomDichVu.iconNameAngular
+        }}</mat-icon>
+        <div mat-line>
+          <span style="font-weight: bold; font-size: 25px">{{
+            nhomDichVu.name
+          }}</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let dichVu of listDichVu">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>
+            {{ dichVu.tenDV }}
+          </mat-card-title>
+        </mat-card-header>
+        <img
+          style="height: 100px"
+          mat-card-image
+          src="{{ dichVu.imgDichVu }}"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-actions>
+          <button mat-button (click)="chuyenToiChiTiet(dichVu)">XEM</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

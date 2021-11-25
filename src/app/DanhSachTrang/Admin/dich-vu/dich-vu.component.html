@@ -1,0 +1,68 @@
+<div class="container-fluid page">
+  <div class="page__box p-3 mt-2">Dịch vụ</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div style="padding-bottom: 25px">
+      <button (click)="ThemDichVu()" mat-raised-button color="primary" >THÊM DỊCH VỤ</button>
+      <button style="margin-left: 10px;" (click)="ReloadPage()" mat-raised-button color="accent" >LÀM MỚI</button>
+    </div>
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 30%">Tên dịch vụ</th>
+            <th scope="col" style="width: 40%">Ảnh</th>
+            <th style="width: 30%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dichVu of listDichVu">
+            <td>{{ dichVu.tenDV }}</td>
+            <td>
+              <img style="width: 30%" src="{{ dichVu.imgDichVu }}" alt="" />
+            </td>
+            <td>
+              <button mat-raised-button color="primary" style="height: 30px" (click)="ChiTietDichVu(dichVu)">
+                CHI TIẾT
+              </button>
+              <button (click)="CapNhatDichVu($event,dichVu)" mat-raised-button color="accent" style="height: 30px; margin-left: 30px">
+                SỬA
+              </button>
+              <button
+              (click)="XoaDichVu($event,dichVu)"
+                mat-raised-button
+                color="warn"
+                style="height: 30px; margin-left: 30px"
+              >
+                XÓA
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div>
+      <h1>Nội dung chi tiết tin tức</h1>
+    </div>
+    <div style="padding-bottom: 25px">
+      <button mat-raised-button color="primary">THÊM NỘI DUNG</button>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div>
+          <ul>
+            <li>Mô tả</li>
+            <li>Danh sách sửa chữa</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div>
+          <ul>
+            <li>Mô tả</li>
+            <li>Danh sách sửa chữa</li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

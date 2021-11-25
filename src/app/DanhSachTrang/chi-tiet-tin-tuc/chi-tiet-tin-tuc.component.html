@@ -1,0 +1,39 @@
+<div class="container">
+  <br />
+  <div class="row">
+    <h1 style="color: red; font-size: 30px">{{ tinTuc.tieuDeChinh }}</h1>
+  </div>
+  <div class="row">
+    <p>Cập nhật bởi admin</p>
+  </div>
+  <div class="row">
+    <img
+      style="width: 100%; height: 500px"
+      src="{{ tinTuc.imgTieuDe }}"
+    />
+  </div>
+  <br />
+  <div class="row">
+    <p *ngFor="let chuThich of tinTuc.chuThich">
+      {{ chuThich }}
+    </p>
+  </div>
+  <div class="row" *ngFor="let noiDungTin of listNoiDungTin">
+    <div class="container-fluid">
+      <div class="row">
+        <h2>{{ noiDungTin.tieuDeTin }}</h2>
+      </div>
+      <div class="row">
+        <img *ngIf="noiDungTin.imgTin != null"
+          style="width: 100%; height: 300px"
+          src="{{ noiDungTin.imgTin }}"
+        />
+      </div>
+      <div class="row" *ngFor="let noiDungTin of noiDungTin.noiDungTin">
+        <p>{{noiDungTin}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,46 @@
+<!-- Menu -->
+<mat-toolbar color="primary">
+  <a mat-button>Chính sách bảo mật</a>
+  <a mat-button>Điều khoản sử dụng</a>
+  <a mat-button>Quy chế hoạt động</a>
+  <a mat-button>Đối tác dịch vụ</a>
+</mat-toolbar>
+
+<!-- Banner -->
+<div style="height: 300px;">
+  <img style="width: 100%; height: 100%;" src="../assets/image/banner.jpg">
+</div>
+
+<!-- Menu -->
+<div style="background-color: brown; color: white;">
+  <button mat-button>Trang chủ</button>
+
+  <button mat-button [matMenuTriggerFor]="menuDoiNgu">Đội ngũ</button>
+  <mat-menu #menuDoiNgu="matMenu">
+    <button mat-menu-item>Giới thiệu</button>
+    <button mat-menu-item>Báo chí</button>
+    <button mat-menu-item>Hình ảnh</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="menuDichVu">Dịch vụ</button>
+  <mat-menu #menuDichVu="matMenu">
+    <button mat-menu-item>Đăng ký đỗi tác</button>
+    <button mat-menu-item>Danh mục dịch vụ sửa chữa</button>
+    <button mat-menu-item>Dịch vụ thiết kê Web</button>
+    <button mat-menu-item>Dịch vụ cho doanh nghiệp</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="menuChuyenMuc">Chuyên mục</button>
+  <mat-menu #menuChuyenMuc="matMenu">
+    <button mat-menu-item>Tài liệu</button>
+    <button mat-menu-item>Kinh nghiệm</button>
+    <button mat-menu-item>Bảng giá</button>
+    <button mat-menu-item>Danh mục giá</button>
+    <button mat-menu-item>Hỏi đáp</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="menuLienKet">Liên kết</button>
+  <mat-menu #menuLienKet="matMenu">
+    <button mat-menu-item>Sửa điều hòa-Sửa máy lạnh</button>
+    <button mat-menu-item>Sửa máy giặt</button>
+    <button mat-menu-item>Sửa chữa tủ lạnh</button>
+  </mat-menu>
+</div>
+

@@ -1,0 +1,13 @@
+<mat-nav-list>
+  <div *ngFor="let nhomDichVu of listNhomDichVu">
+    <a routerLink="/danh-muc-dich-vu/danh-sach-dich-vu"
+      (click)="truyenNhomDichVu(nhomDichVu)"
+      mat-list-item
+      routerLinkActive="list-item-active"
+      ><mat-icon color="warn" class="mat-18">{{
+        nhomDichVu.iconNameAngular
+      }}</mat-icon>
+      <span style="padding-left: 20px">Dịch vụ {{ nhomDichVu.name }}</span>
+    </a>
+  </div>
+</mat-nav-list>

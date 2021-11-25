@@ -1,0 +1,184 @@
+<div class="container-fluid">
+  <!-- Anh dich vu -->
+  <div class="row">
+    <img
+      style="width: 100%; height: 300px"
+      src="{{ dichVu.imgDichVu }}"
+    />
+  </div>
+
+  <!-- Ten dich vu -->
+  <div class="row tieuDe">
+    <h1 style="font-size: 50px">{{ dichVu.tenDV }}</h1>
+  </div>
+
+  <!-- Mo ta  -->
+  <div class="row" *ngIf="dichVu.moTa != null">
+    <ul>
+      <h2>Mô tả dịch vụ</h2>
+      <li *ngFor="let moTa of dichVu.moTa">{{ moTa }}</li>
+    </ul>
+  </div>
+
+  <!-- Danh sach sua chua  -->
+  <div class="row" *ngIf="dichVu.danhSachSuaChua != null">
+    <ul>
+      <h2>Danh sách sửa chữa</h2>
+      <li *ngFor="let suaChua of dichVu.danhSachSuaChua">{{ suaChua }}</li>
+    </ul>
+  </div>
+
+  <!-- Danh sach dich vu  -->
+  <div class="row" *ngIf="dichVu.danhSachDV != null">
+    <ul>
+      <h2>Danh sách dịch vụ</h2>
+      <li *ngFor="let dichVu of dichVu.danhSachDV">{{ dichVu }}</li>
+    </ul>
+  </div>
+
+  <!-- Ly do can sua  -->
+  <div class="row" *ngIf="dichVu.lyDoCanSua != null">
+    <ul>
+      <h2>Lý do cần sửa</h2>
+      <li *ngFor="let lyDo of dichVu.lyDoCanSua">{{ lyDo }}</li>
+    </ul>
+  </div>
+
+  <!-- Nhan biet dich vu  -->
+  <div class="row" *ngIf="isEmpty(listNhanBietDichVu)">
+    <h2 style="padding-left: 43px">
+      Một số dấu hiệu nhận biết trước khi gọi thợ
+    </h2>
+    <ul *ngFor="let nhanBiet of listNhanBietDichVu">
+      <p>{{ nhanBiet.tenNhanBiet }}</p>
+      <li *ngFor="let dauHieu of nhanBiet.dauHieu">{{ dauHieu }}</li>
+    </ul>
+  </div>
+
+  <!-- Bang gia cong viec  -->
+  <div class="row" *ngIf="isEmpty(listGiaCongViec)">
+    <ul>
+      <h2>Bảng giá công việc tham khảo</h2>
+      <li *ngFor="let giaCongViec of listGiaCongViec">
+        {{ giaCongViec.tenThamKhao }}: {{ giaCongViec.noiDungGia }}
+        <span *ngIf="giaCongViec.ghiChu != null"
+          >({{ giaCongViec.ghiChu }})</span
+        >
+      </li>
+    </ul>
+  </div>
+
+  <!-- Bang gia vat tu  -->
+  <div class="row" *ngIf="isEmpty(listGiaVatTu)" style="padding-left: 43px">
+    <h2>Bảng giá vật tư tham khảo</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th *ngIf="showTenVT" scope="col">Tên vật tư</th>
+          <th *ngIf="showDonViVT" scope="col">Đơn vị</th>
+          <th *ngIf="showGiaVT" scope="col">Giá</th>
+          <th *ngIf="showNhomVT" scope="col">Nhóm</th>
+          <th *ngIf="showPhiVT" scope="col">Phí dịch vụ</th>
+          <th *ngIf="showTrieuChungVT" scope="col">Triệu chứng</th>
+          <th *ngIf="showBaoHanhVT" scope="col">Bảo hành</th>
+          <th *ngIf="showGhiChuVT" scope="col">Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let giaVatTu of listGiaVatTu">
+          <td *ngIf="showTenVT">{{ giaVatTu.tenVatTu }}</td>
+          <td *ngIf="showDonViVT">{{ giaVatTu.DVT }}</td>
+          <td *ngIf="showGiaVT">{{ giaVatTu.giaVatTu }}</td>
+          <td *ngIf="showNhomVT">{{ giaVatTu.nhomVT }}</td>
+          <td *ngIf="showPhiVT">{{ giaVatTu.phiDV }}</td>
+          <td *ngIf="showTrieuChungVT">{{ giaVatTu.trieuChung }}</td>
+          <td *ngIf="showBaoHanhVT">{{ giaVatTu.baoHanhVT }}</td>
+          <td *ngIf="showGhiChuVT">{{ giaVatTu.ghiChu }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bang gia cong tho  -->
+  <div class="row" *ngIf="isEmpty(listGiaCongTho)" style="padding-left: 43px">
+    <h2>Bảng giá công thợ tham khảo</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th *ngIf="showTenCT" scope="col">Tên công việc</th>
+          <th *ngIf="showDonVi1CT" scope="col">Đơn vị</th>
+          <th *ngIf="showGiaCT" scope="col">Giá</th>
+          <th *ngIf="showGiaThayCT" scope="col">Giá thay mới</th>
+          <th *ngIf="showPhiCT" scope="col">Phí dịch vụ</th>
+          <th *ngIf="showDonVi2CT" scope="col">Loại</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let giaCongTho of listGiaCongTho">
+          <td *ngIf="showTenCT">{{ giaCongTho.tenCongTho }}</td>
+          <td *ngIf="showDonVi1CT">{{ giaCongTho.DVT }}</td>
+          <td *ngIf="showGiaCT">{{ giaCongTho.giaCongTho }}</td>
+          <td *ngIf="showGiaThayCT">{{ giaCongTho.giaThayVT }}</td>
+          <td *ngIf="showPhiCT">{{ giaCongTho.phiDV }}</td>
+          <td *ngIf="showDonVi2CT">{{ giaCongTho.DVT2 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cam ket -->
+  <div class="row" *ngIf="dichVu.camKet != null">
+    <ul>
+      <h2>Cam kết</h2>
+      <li *ngFor="let camKet of dichVu.camKet">{{ camKet }}</li>
+    </ul>
+  </div>
+
+  <!-- Luu y -->
+  <div class="row" *ngIf="dichVu.luuY != null">
+    <ul>
+      <h2>Lưu ý</h2>
+      <li *ngFor="let luuY of dichVu.luuY">{{ luuY }}</li>
+    </ul>
+  </div>
+
+  <!-- Ghi chu su dung -->
+  <div class="row" *ngIf="dichVu.ghiChuSuDung != null">
+    <ul>
+      <h2>Ghi chú khi sử dụng dịch vụ</h2>
+      <li *ngFor="let ghiChu of dichVu.ghiChuSuDung">{{ ghiChu }}</li>
+    </ul>
+  </div>
+
+  <!-- Tieu chi dich vu -->
+  <div class="row" *ngIf="dichVu.tieuChiDV != null">
+    <ul>
+      <h2>Tiêu chí dịch vụ</h2>
+      <li *ngFor="let tieuChi of dichVu.tieuChiDV">{{ tieuChi }}</li>
+    </ul>
+  </div>
+
+  <!-- Quy trinh tiep nhan -->
+  <div class="row" *ngIf="dichVu.quyTrinhTiepNhan != null">
+    <ul>
+      <h2>Quy trình tiếp nhận dịch vụ</h2>
+      <li *ngFor="let quyTrinh of dichVu.quyTrinhTiepNhan">{{ quyTrinh }}</li>
+    </ul>
+  </div>
+
+  <!-- Quy trinh bao duong -->
+  <div class="row" *ngIf="dichVu.quyTrinhBD != null">
+    <ul>
+      <h2>Quy trình bảo dưỡng dịch vụ</h2>
+      <li *ngFor="let quyTrinh of dichVu.quyTrinhBD">{{ quyTrinh }}</li>
+    </ul>
+  </div>
+
+  <!-- Luu y su dung  -->
+  <div class="row" *ngIf="dichVu.luuYSuDung != null">
+    <ul>
+      <h2>Lưu ý khi sử dụng dịch vụ</h2>
+      <li *ngFor="let luuY of dichVu.luuYSuDung">{{ luuY }}</li>
+    </ul>
+  </div>
+</div>

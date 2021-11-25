@@ -1,0 +1,59 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" opened="true">
+    <div>
+      <img
+        style="width: 100%; height: 100%"
+        src="../assets/image/company_logo_2.png"
+      />
+    </div>
+    <div>
+      <mat-list class="list">
+        <div mat-subheader style="color: red; font-size: 20px">
+          DANH MỤC DỊCH VỤ
+        </div>
+        <!-- <app-menu-dich-vu (showDichVuEvent)="showNhomDichVu($event)"></app-menu-dich-vu> -->
+        <app-menu-dich-vu></app-menu-dich-vu>
+      </mat-list>
+    </div>
+  </mat-drawer>
+  <!-- Phan noi dung o day -->
+  <div class="row">
+    <div class="example-sidenav-content">
+      <mat-toolbar>
+        <button
+          (click)="drawer.toggle()"
+          mat-icon-button
+          class="example-icon"
+          aria-label="Example icon-button with menu icon"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Sonar Services</span>
+        <span class="example-spacer"></span>
+        <button [routerLink]="'/'"
+          mat-icon-button
+          class="example-icon"
+          aria-label="Example icon-button with share icon"
+        >
+          <mat-icon>home</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          class="example-icon favorite-icon"
+          aria-label="Example icon-button with heart icon"
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          class="example-icon"
+          aria-label="Example icon-button with share icon"
+        >
+          <mat-icon>share</mat-icon>
+        </button>
+      </mat-toolbar>
+    </div>
+  </div>
+  <!-- Phan than trang -->
+  <router-outlet></router-outlet>
+</mat-drawer-container>

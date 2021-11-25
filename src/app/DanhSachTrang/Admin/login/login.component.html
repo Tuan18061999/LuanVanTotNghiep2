@@ -1,0 +1,71 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row mt-20">
+      <div class="col-md-6 offset-md-3">
+        <mat-card>
+          <div class="container text-center">
+            <img src="../assets/image/login.png" />
+          </div>
+          <h1 class="text-center">Login Here !!</h1>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input
+              required
+              matInput
+              placeholder="Enter here"
+              [(ngModel)]="adminForm.name"
+              #ctrl="ngModel"
+              name="name"
+            />
+            <mat-hint>Valid User Name</mat-hint>
+            <mat-error *ngIf="true">User name must enter a value</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Enter your password</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              required
+              placeholder="Enter here"
+              [(ngModel)]="adminForm.password"
+              name="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="true">Password must enter a value</mat-error>
+          </mat-form-field>
+
+          <!-- <mat-form-field class="full-width" appearance="outline">
+              <mat-label>User Password</mat-label>
+              <input
+                type="password"
+                required
+                matInput
+                placeholder="Enter here"
+              />
+            </mat-form-field> -->
+
+          <div class="container text-center">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="onSubmit()"
+              [disabled]="adminForm.password == '' || adminForm.name == ''"
+            >
+              Login
+            </button>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
