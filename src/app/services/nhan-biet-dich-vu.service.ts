@@ -31,8 +31,16 @@ export class NhanBietDichVuService {
     return this.listNhanBietDichVu;
   }
 
-  create_NewNhanBietDichVu(nhanBietDichVu: any, idDoc: string) {
+  create_NewNhanBietDichVu(nhanBietDichVu: NhanBietDichVu, idDoc: string) {
     console.log("thanh cong tao");
+    if(nhanBietDichVu.tenNhanBiet == undefined || nhanBietDichVu.tenNhanBiet == ''){
+      delete nhanBietDichVu.tenNhanBiet;
+    }
+
+    if(nhanBietDichVu.dauHieu == undefined || nhanBietDichVu.dauHieu == []){
+      delete nhanBietDichVu.dauHieu;
+    }
+
     return this.fireservices
       .collection('DichVu/' + idDoc + '/nhanBietDV')
       .add(nhanBietDichVu);
@@ -71,14 +79,10 @@ export class NhanBietDichVuService {
 
   update_AllNhanBietDichVu(
     dichVu: DichVu,
-    listOldNhanBietDichVu: NhanBietDichVu[],
+
     listNewNhanBietDichVu: NhanBietDichVu[]
   ) {
-    // for(let nhanBiet of listOldNhanBietDichVu){
-    //   this.delete_NhanBietDichVu(dichVu,nhanBiet);
-    // }
 
-    //this.delete_AllNhanBietDichVu(dichVu);
 
     for (let nhanBiet of listNewNhanBietDichVu) {
       delete nhanBiet.idDoc;

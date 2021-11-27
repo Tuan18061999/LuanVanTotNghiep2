@@ -1,3 +1,4 @@
+import { ThongKeComponent } from './DanhSachTrang/Admin/thong-ke/thong-ke.component';
 import { PartnerComponent } from './DanhSachTrang/Admin/partner/partner.component';
 import { DichVuComponent } from './DanhSachTrang/Admin/dich-vu/dich-vu.component';
 import { ChiTietTinTucComponent } from './DanhSachTrang/chi-tiet-tin-tuc/chi-tiet-tin-tuc.component';
@@ -70,6 +71,10 @@ const routes: Routes = [
       {
         path: 'partner',
         component: PartnerComponent,
+      },
+      {
+        path: 'thong-ke',
+        component: ThongKeComponent,
       },
     ],
   },

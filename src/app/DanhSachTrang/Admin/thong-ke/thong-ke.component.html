@@ -1,0 +1,86 @@
+<div class="container-fluid page">
+  <div class="page__box p-3 mt-2">Thống kê</div>
+  <div class="page__content shadow p-3 position-relative">
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>KHÁCH HÀNG</mat-panel-title>
+          <mat-panel-description>
+            Các thông tin thống kê của khách hàng
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Phan noi dung o day -->
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>ĐỐI TÁC</mat-panel-title>
+          <mat-panel-description>
+            Các thông tin thống kê của đối tác
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Phan noi dung o day -->
+
+        <h3>Số lượng đối tác gia nhập theo thời gian</h3>
+        <div style="width: 40%">
+          <canvas
+            baseChart
+            [chartType]="'line'"
+            [legend]="true"
+            [datasets]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [legend]="true"
+            (chartHover)="onChartHover($event)"
+            (chartClick)="onChartClick($event)"
+          >
+          </canvas>
+          <!-- <button (click)="newDataPoint([900, 50, 300], 'May')">
+            Add data point
+          </button> -->
+        </div>
+        <br /><br />
+        <h3>Số lượng đối tác của từng dịch vụ</h3>
+        <div style="width: 40%">
+          <canvas
+            baseChart
+            [datasets]="chartDataDichVu"
+            [labels]="chartLabelsDichVu"
+            chartType="horizontalBar"
+          >
+          </canvas>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>DỊCH VỤ</mat-panel-title>
+          <mat-panel-description>
+            Các thông tin thống kê của nhóm dịch vụ
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Phan noi dung o day -->
+        <div style="width: 100%">
+          <canvas
+            baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [colors]="pieChartColors"
+            [legend]="pieChartLegend"
+          >
+          </canvas>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
+  </div>
+</div>

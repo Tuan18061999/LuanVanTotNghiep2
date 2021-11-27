@@ -254,6 +254,7 @@
             <th scope="col">STT</th>
             <th scope="col">Tên vật tư</th>
             <th scope="col">Giá</th>
+            <th scope="col">DVT</th>
             <th scope="col">Nhóm</th>
             <th scope="col">Phí dịch vụ</th>
             <th scope="col">Triệu chứng</th>
@@ -267,6 +268,7 @@
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ giaVatTu.tenVatTu }}</td>
             <td>{{ giaVatTu.giaVatTu }}</td>
+            <td>{{ giaVatTu.DVT }}</td>
             <td>{{ giaVatTu.nhomVT }}</td>
             <td>{{ giaVatTu.phiDV }}</td>
             <td>{{ giaVatTu.trieuChung }}</td>
@@ -301,6 +303,10 @@
       <mat-form-field appearance="fill" style="padding-right: 20px">
         <mat-label>Giá</mat-label>
         <input matInput [(ngModel)]="giaVatTu.giaVatTu" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="padding-right: 20px">
+        <mat-label>Đơn vị tính</mat-label>
+        <input matInput [(ngModel)]="giaVatTu.DVT" />
       </mat-form-field>
       <mat-form-field appearance="fill" style="padding-right: 20px">
         <mat-label>Nhóm</mat-label>
@@ -515,5 +521,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="XoaDuLieu()">OK</button>
 </mat-dialog-actions>

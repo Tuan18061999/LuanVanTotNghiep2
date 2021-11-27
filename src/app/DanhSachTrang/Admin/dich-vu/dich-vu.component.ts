@@ -189,7 +189,6 @@ export class DichVuComponent implements OnInit {
           listGiaCongTho: listGiaCongThoSelected,
         },
       });
-      this.nhanBietDichVuService.delete_AllNhanBietDichVu(dichVu);
 
       dialogRef.afterClosed().pipe(take(1)).subscribe((result: any) => {
 
@@ -198,22 +197,18 @@ export class DichVuComponent implements OnInit {
 
           this.nhanBietDichVuService.update_AllNhanBietDichVu(
             result.dichVu,
-            listNhanBietDichVuSelected,
             result.listNhanBietDichVu
           );
           this.giaCongViecService.update_AllGiaCongViec(
             result.dichVu,
-            listGiaCongViecSelected,
             result.listGiaCongViec
           );
           this.giaVatTuService.update_AllGiaVatTu(
             result.dichVu,
-            listGiaVatTuSelected,
             result.listGiaVatTu
           );
           this.giaCongThoService.update_AllGiaCongTho(
             result.dichVu,
-            listGiaCongThoSelected,
             result.listGiaCongTho
           );
           this.dichVuService.update_DichVu(result.dichVu);

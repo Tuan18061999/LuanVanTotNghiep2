@@ -30,7 +30,31 @@ export class GiaVatTuService {
       );
     return this.listGiaVatTu;
   }
-  create_NewGiaVatTu(giaVatTu: any, idDoc: string){
+  create_NewGiaVatTu(giaVatTu: GiaVatTu, idDoc: string){
+    if(giaVatTu.DVT == undefined || giaVatTu.DVT == ''){
+      delete giaVatTu.DVT;
+    }
+    if(giaVatTu.baoHanhVT == undefined || giaVatTu.baoHanhVT == ''){
+      delete giaVatTu.baoHanhVT;
+    }
+    if(giaVatTu.giaVatTu == undefined || giaVatTu.giaVatTu == ''){
+      delete giaVatTu.giaVatTu;
+    }
+    if(giaVatTu.tenVatTu == undefined || giaVatTu.tenVatTu == ''){
+      delete giaVatTu.tenVatTu;
+    }
+    if(giaVatTu.ghiChu == undefined || giaVatTu.ghiChu == ''){
+      delete giaVatTu.ghiChu;
+    }
+    if(giaVatTu.nhomVT == undefined || giaVatTu.nhomVT == ''){
+      delete giaVatTu.nhomVT;
+    }
+    if(giaVatTu.phiDV == undefined || giaVatTu.phiDV == ''){
+      delete giaVatTu.phiDV;
+    }
+    if(giaVatTu.trieuChung == undefined || giaVatTu.trieuChung == ''){
+      delete giaVatTu.trieuChung;
+    }
     return this.fireservices.collection('DichVu/'+idDoc+'/giaVTThamKhao').add(giaVatTu);
   }
 
@@ -56,12 +80,8 @@ export class GiaVatTuService {
 
   update_AllGiaVatTu(
     dichVu: DichVu,
-    listOldGiaVatTu: GiaVatTu[],
     listNewGiaVatTu: GiaVatTu[]
   ) {
-    for(let giaVatTu of listOldGiaVatTu){
-      this.delete_GiaVatTu(dichVu,giaVatTu);
-    }
     for (let giaVatTu of listNewGiaVatTu) {
       delete giaVatTu.idDoc;
       this.create_NewGiaVatTu(giaVatTu, dichVu.idDoc!);

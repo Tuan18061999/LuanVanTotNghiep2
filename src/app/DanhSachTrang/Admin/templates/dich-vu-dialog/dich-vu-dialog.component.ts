@@ -1,3 +1,6 @@
+import { GiaCongThoService } from './../../../../services/gia-cong-tho.service';
+import { GiaVatTuService } from './../../../../services/gia-vat-tu.service';
+import { GiaCongViecService } from './../../../../services/gia-cong-viec.service';
 import { NhanBietDichVuService } from './../../../../services/nhan-biet-dich-vu.service';
 import { GiaVatTu } from 'src/app/models/GiaVatTu';
 import { NhanBietDichVu } from './../../../../models/NhanBietDichVu';
@@ -37,6 +40,9 @@ export class DichVuDialogComponent implements OnInit {
   DialogRef: any;
   constructor(
     public nhanBietDichVuService: NhanBietDichVuService,
+    public giaCongViecService: GiaCongViecService,
+    public giaVatTuService: GiaVatTuService,
+    public giaCongThoService: GiaCongThoService,
     public nhomDichVuSerVice: NhomDichVuService,
     dialogRef: MatDialogRef<DichVuDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -74,16 +80,15 @@ export class DichVuDialogComponent implements OnInit {
 
   }
   onNoClick() {
-    this.PhucHoiDuLieu();
     this.DialogRef.close();
 
   }
-  PhucHoiDuLieu(){
-    this.nhanBietDichVuService.update_AllNhanBietDichVu(
-      this.data.dichVu,
-      this.data.listNhanBietDichVu,
-      this.data.listNhanBietDichVu
-    );
+  //Dung de xoa het du lieu truoc khi cap nhat du lieu moi
+  XoaDuLieu(){
+    this.nhanBietDichVuService.delete_AllNhanBietDichVu(this.data.dichVu);
+    this.giaCongViecService.delete_AllGiaCongViec(this.data.dichVu);
+    this.giaVatTuService.delete_AllGiaCongTho(this.data.dichVu);
+    this.giaCongThoService.delete_AllGiaCongTho(this.data.dichVu);
   }
 
 
@@ -194,6 +199,7 @@ export class DichVuDialogComponent implements OnInit {
   ClearGiaVatTu(){
     this.giaVatTu.tenVatTu = '';
     this.giaVatTu.giaVatTu = '';
+    this.giaVatTu.DVT = '';
     this.giaVatTu.nhomVT = '';
     this.giaVatTu.phiDV = '';
     this.giaVatTu.trieuChung = '';
@@ -204,6 +210,7 @@ export class DichVuDialogComponent implements OnInit {
     let newGiaVatTu: GiaVatTu = {};
     newGiaVatTu.tenVatTu = this.giaVatTu.tenVatTu;
     newGiaVatTu.giaVatTu = this.giaVatTu.giaVatTu;
+    newGiaVatTu.DVT = this.giaVatTu.DVT;
     newGiaVatTu.nhomVT = this.giaVatTu.nhomVT;
     newGiaVatTu.phiDV = this.giaVatTu.phiDV;
     newGiaVatTu.trieuChung = this.giaVatTu.trieuChung;
@@ -221,6 +228,7 @@ export class DichVuDialogComponent implements OnInit {
     giaVatTuSelected = this.data.listGiaVatTu[id];
     this.giaVatTu.tenVatTu = giaVatTuSelected.tenVatTu;
     this.giaVatTu.giaVatTu = giaVatTuSelected.giaVatTu;
+    this.giaVatTu.DVT = giaVatTuSelected.DVT;
     this.giaVatTu.nhomVT = giaVatTuSelected.nhomVT;
     this.giaVatTu.phiDV = giaVatTuSelected.phiDV;
     this.giaVatTu.trieuChung = giaVatTuSelected.trieuChung;
@@ -231,6 +239,7 @@ export class DichVuDialogComponent implements OnInit {
   LuuGiaVatTu(){
     this.data.listGiaVatTu[this.idSelected].tenVatTu = this.giaVatTu.tenVatTu;
     this.data.listGiaVatTu[this.idSelected].giaVatTu = this.giaVatTu.giaVatTu;
+    this.data.listGiaVatTu[this.idSelected].DVT = this.giaVatTu.DVT;
     this.data.listGiaVatTu[this.idSelected].nhomVT = this.giaVatTu.nhomVT;
     this.data.listGiaVatTu[this.idSelected].phiDV = this.giaVatTu.phiDV;
     this.data.listGiaVatTu[this.idSelected].trieuChung = this.giaVatTu.trieuChung;

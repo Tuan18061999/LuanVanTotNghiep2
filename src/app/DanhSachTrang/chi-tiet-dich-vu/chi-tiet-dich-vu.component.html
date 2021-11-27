@@ -45,10 +45,12 @@
   </div>
 
   <!-- Nhan biet dich vu  -->
-  <div class="row" *ngIf="isEmpty(listNhanBietDichVu)">
-    <h2 style="padding-left: 43px">
+  <div class="row" *ngIf="isEmpty(listNhanBietDichVu)" >
+    <h2 style="padding-left: 43px;" >
       Một số dấu hiệu nhận biết trước khi gọi thợ
     </h2>
+  </div>
+  <div class="row" *ngIf="isEmpty(listNhanBietDichVu)" >
     <ul *ngFor="let nhanBiet of listNhanBietDichVu">
       <p>{{ nhanBiet.tenNhanBiet }}</p>
       <li *ngFor="let dauHieu of nhanBiet.dauHieu">{{ dauHieu }}</li>

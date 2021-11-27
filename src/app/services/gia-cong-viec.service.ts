@@ -31,7 +31,16 @@ export class GiaCongViecService {
     return this.listGiaCongViec;
   }
 
-  create_NewGiaCongViec(giaCongViec: any, idDoc: string){
+  create_NewGiaCongViec(giaCongViec: GiaCongViec, idDoc: string){
+    if(giaCongViec.tenThamKhao == undefined || giaCongViec.tenThamKhao == ''){
+      delete giaCongViec.tenThamKhao;
+    }
+    if(giaCongViec.noiDungGia == undefined || giaCongViec.noiDungGia == ''){
+      delete giaCongViec.noiDungGia;
+    }
+    if(giaCongViec.ghiChu == undefined || giaCongViec.ghiChu == ''){
+      delete giaCongViec.ghiChu;
+    }
     return this.fireservices.collection('DichVu/'+idDoc+'/giaCVThamKhao').add(giaCongViec);
   }
 
@@ -56,12 +65,8 @@ export class GiaCongViecService {
 
   update_AllGiaCongViec(
     dichVu: DichVu,
-    listOldGiaCongViec: GiaCongViec[],
     listNewGiaCongViec: GiaCongViec[]
   ) {
-    for(let giaCongViec of listOldGiaCongViec){
-      this.delete_GiaCongViec(dichVu,giaCongViec);
-    }
     for (let giaCongViec of listNewGiaCongViec) {
       delete giaCongViec.idDoc;
       this.create_NewGiaCongViec(giaCongViec, dichVu.idDoc!);

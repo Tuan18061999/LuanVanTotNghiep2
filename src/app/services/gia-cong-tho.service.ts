@@ -30,7 +30,25 @@ export class GiaCongThoService {
     return this.listGiaCongTho;
   }
 
-  create_NewGiaCongTho(giaCongTho: any, idDoc: string) {
+  create_NewGiaCongTho(giaCongTho: GiaCongTho, idDoc: string) {
+    if(giaCongTho.tenCongTho == undefined || giaCongTho.tenCongTho == ''){
+      delete giaCongTho.tenCongTho;
+    }
+    if(giaCongTho.DVT == undefined || giaCongTho.DVT == ''){
+      delete giaCongTho.DVT;
+    }
+    if(giaCongTho.DVT2 == undefined || giaCongTho.DVT2 == ''){
+      delete giaCongTho.DVT2;
+    }
+    if(giaCongTho.giaCongTho == undefined || giaCongTho.giaCongTho == ''){
+      delete giaCongTho.giaCongTho;
+    }
+    if(giaCongTho.giaThayVT == undefined || giaCongTho.giaThayVT == ''){
+      delete giaCongTho.giaThayVT;
+    }
+    if(giaCongTho.phiDV == undefined || giaCongTho.phiDV == ''){
+      delete giaCongTho.phiDV;
+    }
     return this.fireservices
       .collection('DichVu/' + idDoc + '/giaCongThoThamKhao')
       .add(giaCongTho);
@@ -58,12 +76,8 @@ export class GiaCongThoService {
 
   update_AllGiaCongTho(
     dichVu: DichVu,
-    listOldGiaCongTho: GiaCongTho[],
     listNewGiaCongTho: GiaCongTho[]
   ) {
-    for(let giaCongTho of listOldGiaCongTho){
-      this.delete_GiaCongTho(dichVu,giaCongTho);
-    }
     for (let giaCongTho of listNewGiaCongTho) {
       delete giaCongTho.idDoc;
       this.create_NewGiaCongTho(giaCongTho, dichVu.idDoc!);

@@ -39,7 +39,8 @@ import { DichVuComponent } from './DanhSachTrang/Admin/dich-vu/dich-vu.component
 import { DichVuDialogComponent } from './DanhSachTrang/Admin/templates/dich-vu-dialog/dich-vu-dialog.component';
 import { PartnerComponent } from './DanhSachTrang/Admin/partner/partner.component';
 import { PartnerDialogComponent } from './DanhSachTrang/Admin/templates/partner-dialog/partner-dialog.component';
-
+import { ChartsModule } from 'ng2-charts';
+import { ThongKeComponent } from './DanhSachTrang/Admin/thong-ke/thong-ke.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { PartnerDialogComponent } from './DanhSachTrang/Admin/templates/partner-
     DichVuDialogComponent,
     PartnerComponent,
     PartnerDialogComponent,
+    ThongKeComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,7 @@ import { PartnerDialogComponent } from './DanhSachTrang/Admin/templates/partner-
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     FormsModule,
+    ChartsModule,
   ],
   providers: [
     UserService,
