@@ -41,7 +41,7 @@ import { PartnerComponent } from './DanhSachTrang/Admin/partner/partner.componen
 import { PartnerDialogComponent } from './DanhSachTrang/Admin/templates/partner-dialog/partner-dialog.component';
 import { ChartsModule } from 'ng2-charts';
 import { ThongKeComponent } from './DanhSachTrang/Admin/thong-ke/thong-ke.component';
-
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -88,6 +88,7 @@ import { ThongKeComponent } from './DanhSachTrang/Admin/thong-ke/thong-ke.compon
   providers: [
     UserService,
     AuthGuard,
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

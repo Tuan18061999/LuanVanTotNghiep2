@@ -25,34 +25,57 @@
 
         <!-- Phan noi dung o day -->
 
-        <h3>Số lượng đối tác gia nhập theo thời gian</h3>
-        <div style="width: 40%">
-          <canvas
-            baseChart
-            [chartType]="'line'"
-            [legend]="true"
-            [datasets]="chartData"
-            [labels]="chartLabels"
-            [options]="chartOptions"
-            [legend]="true"
-            (chartHover)="onChartHover($event)"
-            (chartClick)="onChartClick($event)"
-          >
-          </canvas>
-          <!-- <button (click)="newDataPoint([900, 50, 300], 'May')">
-            Add data point
-          </button> -->
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h3>Số lượng đối tác gia nhập từng ngày</h3>
+              <div style="width: 100%">
+                <canvas
+                  baseChart
+                  [chartType]="'line'"
+                  [legend]="true"
+                  [datasets]="chartData"
+                  [labels]="chartLabels"
+                  [options]="chartOptions"
+                  [legend]="true"
+                >
+                </canvas>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h3>Số lượng đối tác gia nhập theo thời gian</h3>
+              <div style="width: 100%">
+                <canvas
+                  baseChart
+                  [chartType]="'line'"
+                  [legend]="true"
+                  [datasets]="chartDataPartnerAtTime"
+                  [labels]="chartLabels"
+                  [options]="chartOptions"
+                  [legend]="true"
+                >
+                </canvas>
+              </div>
+            </div>
+          </div>
         </div>
-        <br /><br />
-        <h3>Số lượng đối tác của từng dịch vụ</h3>
-        <div style="width: 40%">
-          <canvas
-            baseChart
-            [datasets]="chartDataDichVu"
-            [labels]="chartLabelsDichVu"
-            chartType="horizontalBar"
-          >
-          </canvas>
+        <br><br>
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Số lượng đối tác của từng nhóm dịch vụ</h3>
+            <div style="width: 60%">
+              <canvas
+                baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                [options]="pieChartOptions"
+                [colors]="pieChartColors"
+                [legend]="pieChartLegend"
+              >
+              </canvas>
+            </div>
+          </div>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
@@ -60,25 +83,13 @@
     <mat-accordion>
       <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
-          <mat-panel-title>DỊCH VỤ</mat-panel-title>
+          <mat-panel-title>NHÓM DỊCH VỤ</mat-panel-title>
           <mat-panel-description>
             Các thông tin thống kê của nhóm dịch vụ
           </mat-panel-description>
         </mat-expansion-panel-header>
 
         <!-- Phan noi dung o day -->
-        <div style="width: 100%">
-          <canvas
-            baseChart
-            [data]="pieChartData"
-            [labels]="pieChartLabels"
-            [chartType]="pieChartType"
-            [options]="pieChartOptions"
-            [colors]="pieChartColors"
-            [legend]="pieChartLegend"
-          >
-          </canvas>
-        </div>
       </mat-expansion-panel>
     </mat-accordion>
     <br />

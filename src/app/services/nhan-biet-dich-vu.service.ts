@@ -32,12 +32,15 @@ export class NhanBietDichVuService {
   }
 
   create_NewNhanBietDichVu(nhanBietDichVu: NhanBietDichVu, idDoc: string) {
-    console.log("thanh cong tao");
-    if(nhanBietDichVu.tenNhanBiet == undefined || nhanBietDichVu.tenNhanBiet == ''){
+    console.log('them nhan biet');
+    if (
+      nhanBietDichVu.tenNhanBiet == undefined ||
+      nhanBietDichVu.tenNhanBiet == ''
+    ) {
       delete nhanBietDichVu.tenNhanBiet;
     }
 
-    if(nhanBietDichVu.dauHieu == undefined || nhanBietDichVu.dauHieu == []){
+    if (nhanBietDichVu.dauHieu == undefined || nhanBietDichVu.dauHieu == []) {
       delete nhanBietDichVu.dauHieu;
     }
 
@@ -56,7 +59,7 @@ export class NhanBietDichVuService {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           doc.ref.delete();
-          console.log("thanh cong xoa");
+          console.log('xoa nhan biet');
         });
       });
   }
@@ -82,12 +85,9 @@ export class NhanBietDichVuService {
 
     listNewNhanBietDichVu: NhanBietDichVu[]
   ) {
-
-
     for (let nhanBiet of listNewNhanBietDichVu) {
       delete nhanBiet.idDoc;
       this.create_NewNhanBietDichVu(nhanBiet, dichVu.idDoc!);
     }
-
   }
 }

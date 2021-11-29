@@ -55,17 +55,19 @@ export class GiaVatTuService {
     if(giaVatTu.trieuChung == undefined || giaVatTu.trieuChung == ''){
       delete giaVatTu.trieuChung;
     }
+    console.log('them vat tu')
     return this.fireservices.collection('DichVu/'+idDoc+'/giaVTThamKhao').add(giaVatTu);
   }
 
   giaVatTuDoc!: AngularFirestoreDocument<GiaVatTu>;
-  delete_AllGiaCongTho(dichVu: DichVu) {
+  delete_AllGiaVatTu(dichVu: DichVu) {
     this.fireservices
       .collection(`DichVu/${dichVu.idDoc}/giaVTThamKhao`)
       .get()
       .toPromise()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+          console.log('xoa vat tu');
           doc.ref.delete();
         });
       });

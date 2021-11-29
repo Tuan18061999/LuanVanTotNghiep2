@@ -34,7 +34,7 @@ export class DichVuComponent implements OnInit {
   listGiaCongViec!: GiaCongViec[];
   listGiaVatTu!: GiaVatTu[];
   listGiaCongTho!: GiaCongTho[];
-  // trangThaiForm = 'dong';
+  trangThaiForm = 'dong';
 
 
   constructor(
@@ -103,6 +103,7 @@ export class DichVuComponent implements OnInit {
         }
         //Tao gia cong viec
         for (let giaCongViec of result.listGiaCongViec) {
+
           this.giaCongViecService.create_NewGiaCongViec(
             giaCongViec,
             dichVuCreated[0].idDoc
@@ -133,7 +134,7 @@ export class DichVuComponent implements OnInit {
       if (result === true) {
         this.nhanBietDichVuService.delete_AllNhanBietDichVu(dichVu);
         this.giaCongViecService.delete_AllGiaCongViec(dichVu);
-        this.giaVatTuService.delete_AllGiaCongTho(dichVu);
+        this.giaVatTuService.delete_AllGiaVatTu(dichVu);
         this.giaCongThoService.delete_AllGiaCongTho(dichVu);
         this.dichVuService.delete_DichVu(dichVu);
         this.router.navigate(['/admin/dich-vu']);

@@ -25,10 +25,14 @@ export class DichVuDialogComponent implements OnInit {
   giaVatTu: GiaVatTu = {};
   giaCongTho: GiaCongTho = {};
 
+  //Cac list co vai tro giu gai tri ban dau
+  listNhanBietDichVuBanDau: NhanBietDichVu[] = [];
+  listGiaCongViecBanDau: GiaCongViec[] = [];
+  listGiaVatTuBanDau: GiaVatTu[] = [];
+  listGiaCongThoBanDau: GiaCongTho[] = [];
+
   @ViewChild('dauHieu') dauHieu: any;
   @ViewChild('moTa') moTa: any;
-
-
 
   //Cac bien cua form
   trangThaiNhanBiet: boolean = true;
@@ -58,39 +62,68 @@ export class DichVuDialogComponent implements OnInit {
       this.listNhomDichVu = data;
     });
     this.DialogRef = dialogRef;
-
-
   }
 
   ngOnInit(): void {
     //Khoi tao bo nho cho cac list de co the xai ham push
-    if(this.data.listNhanBietDichVu == null){
+    if (this.data.listNhanBietDichVu == null) {
+      //Khi moi tao chua co du lieu nen phai phai gan du lieu [] de xai ham push
       this.data.listNhanBietDichVu = [];
+    }else{
+      for(let nhanBiet of this.data.listNhanBietDichVu){
+        //Khi o trang thai sua, gan gia tri cho mang de giu lai gia tri ban dau
+        this.listNhanBietDichVuBanDau.push(nhanBiet);
+      }
     }
-    if(this.data.listGiaCongViec == null){
+
+    if (this.data.listGiaCongViec == null) {
       this.data.listGiaCongViec = [];
+    }else{
+      for(let giaCongViec of this.data.listGiaCongViec){
+        this.listGiaCongViecBanDau.push(giaCongViec);
+      }
     }
-    if(this.data.listGiaVatTu == null){
+
+    if (this.data.listGiaVatTu == null) {
       this.data.listGiaVatTu = [];
+    }else{
+      for(let giaVatTu of this.data.listGiaVatTu){
+        this.listGiaVatTuBanDau.push(giaVatTu);
+      }
     }
-    if(this.data.listGiaCongTho == null){
+
+    if (this.data.listGiaCongTho == null) {
       this.data.listGiaCongTho = [];
+    }else{
+      for(let giaCongTho of this.data.listGiaCongTho){
+        this.listGiaCongThoBanDau.push(giaCongTho);
+      }
     }
-
-
   }
   onNoClick() {
     this.DialogRef.close();
-
   }
   //Dung de xoa het du lieu truoc khi cap nhat du lieu moi
-  XoaDuLieu(){
-    this.nhanBietDichVuService.delete_AllNhanBietDichVu(this.data.dichVu);
-    this.giaCongViecService.delete_AllGiaCongViec(this.data.dichVu);
-    this.giaVatTuService.delete_AllGiaCongTho(this.data.dichVu);
-    this.giaCongThoService.delete_AllGiaCongTho(this.data.dichVu);
+  XoaDuLieu() {
+    console.log('ban dau',this.listNhanBietDichVuBanDau);
+    console.log('sau khi chinh sau',this.data.listNhanBietDichVu);
+    for(let nhanBiet of this.listNhanBietDichVuBanDau){
+      this.nhanBietDichVuService.delete_NhanBietDichVu(this.data.dichVu,nhanBiet);
+    }
+    for(let giaCongViec of this.listGiaCongViecBanDau){
+      this.giaCongViecService.delete_GiaCongViec(this.data.dichVu,giaCongViec);
+    }
+    for(let giaVatTu of this.listGiaVatTuBanDau){
+      this.giaVatTuService.delete_GiaVatTu(this.data.dichVu,giaVatTu);
+    }
+    for(let giaCongTho of this.listGiaCongThoBanDau){
+      this.giaCongThoService.delete_GiaCongTho(this.data.dichVu,giaCongTho);
+    }
+    // this.nhanBietDichVuService.delete_AllNhanBietDichVu(this.data.dichVu);
+    // this.giaCongViecService.delete_AllGiaCongViec(this.data.dichVu);
+    // this.giaVatTuService.delete_AllGiaVatTu(this.data.dichVu);
+    // this.giaCongThoService.delete_AllGiaCongTho(this.data.dichVu);
   }
-
 
   ChuoiThanhMangNBDV(event: any) {
     this.nhanBietDichVu.dauHieu = event.target.value.split('\n');
@@ -130,7 +163,7 @@ export class DichVuDialogComponent implements OnInit {
     this.data.dichVu.luuYSuDung = event.target.value.split('\n');
   }
   //Nhan biet dich vu
-  clearNhanBiet(){
+  clearNhanBiet() {
     this.nhanBietDichVu.tenNhanBiet = '';
     this.nhanBietDichVu.dauHieu = [];
     this.dauHieu.nativeElement.value = ' ';
@@ -142,27 +175,30 @@ export class DichVuDialogComponent implements OnInit {
     this.data.listNhanBietDichVu.push(newNhanBietDichVu);
     this.clearNhanBiet();
   }
-  XoaNhanBiet(id: number){
-    this.data.listNhanBietDichVu.splice(id,1);
+  XoaNhanBiet(id: number) {
+    this.data.listNhanBietDichVu.splice(id, 1);
   }
-  SuaNhanBiet(id: number){
+  SuaNhanBiet(id: number) {
     this.idSelected = id;
     let nhanBietDichVuSelected: NhanBietDichVu;
     nhanBietDichVuSelected = this.data.listNhanBietDichVu[id];
     this.nhanBietDichVu.tenNhanBiet = nhanBietDichVuSelected.tenNhanBiet;
     this.nhanBietDichVu.dauHieu = nhanBietDichVuSelected.dauHieu;
-    this.dauHieu.nativeElement.value = nhanBietDichVuSelected.dauHieu?.join('\n');
+    this.dauHieu.nativeElement.value =
+      nhanBietDichVuSelected.dauHieu?.join('\n');
     this.trangThaiNhanBiet = false;
   }
-  LuuNhanBiet(){
-    this.data.listNhanBietDichVu[this.idSelected].tenNhanBiet = this.nhanBietDichVu.tenNhanBiet;
-    this.data.listNhanBietDichVu[this.idSelected].dauHieu = this.nhanBietDichVu.dauHieu;
+  LuuNhanBiet() {
+    this.data.listNhanBietDichVu[this.idSelected].tenNhanBiet =
+      this.nhanBietDichVu.tenNhanBiet;
+    this.data.listNhanBietDichVu[this.idSelected].dauHieu =
+      this.nhanBietDichVu.dauHieu;
     this.trangThaiNhanBiet = true;
     this.clearNhanBiet();
   }
 
   //Gia cong viec
-  clearGiaCongViec(){
+  clearGiaCongViec() {
     this.giaCongViec.tenThamKhao = '';
     this.giaCongViec.noiDungGia = '';
     this.giaCongViec.ghiChu = '';
@@ -175,10 +211,10 @@ export class DichVuDialogComponent implements OnInit {
     this.data.listGiaCongViec.push(newGiaCongViec);
     this.clearGiaCongViec();
   }
-  XoaGiaCongViec(id: number){
-    this.data.listGiaCongViec.splice(id,1);
+  XoaGiaCongViec(id: number) {
+    this.data.listGiaCongViec.splice(id, 1);
   }
-  SuaGiaCongViec(id: number){
+  SuaGiaCongViec(id: number) {
     this.idSelected = id;
     let giaCongViecSelected: GiaCongViec;
     giaCongViecSelected = this.data.listGiaCongViec[id];
@@ -187,16 +223,18 @@ export class DichVuDialogComponent implements OnInit {
     this.giaCongViec.ghiChu = giaCongViecSelected.ghiChu;
     this.trangThaiGiaCongViec = false;
   }
-  LuuGiaCongViec(){
-    this.data.listGiaCongViec[this.idSelected].tenThamKhao = this.giaCongViec.tenThamKhao;
-    this.data.listGiaCongViec[this.idSelected].noiDungGia = this.giaCongViec.noiDungGia;
+  LuuGiaCongViec() {
+    this.data.listGiaCongViec[this.idSelected].tenThamKhao =
+      this.giaCongViec.tenThamKhao;
+    this.data.listGiaCongViec[this.idSelected].noiDungGia =
+      this.giaCongViec.noiDungGia;
     this.data.listGiaCongViec[this.idSelected].ghiChu = this.giaCongViec.ghiChu;
     this.trangThaiGiaCongViec = true;
     this.clearGiaCongViec();
   }
 
   //Gia vat tu
-  ClearGiaVatTu(){
+  ClearGiaVatTu() {
     this.giaVatTu.tenVatTu = '';
     this.giaVatTu.giaVatTu = '';
     this.giaVatTu.DVT = '';
@@ -219,10 +257,10 @@ export class DichVuDialogComponent implements OnInit {
     this.data.listGiaVatTu.push(newGiaVatTu);
     this.ClearGiaVatTu();
   }
-  XoaGiaVatTu(id: number){
-    this.data.listGiaVatTu.splice(id,1);
+  XoaGiaVatTu(id: number) {
+    this.data.listGiaVatTu.splice(id, 1);
   }
-  SuaGiaVatTu(id: number){
+  SuaGiaVatTu(id: number) {
     this.idSelected = id;
     let giaVatTuSelected: GiaVatTu;
     giaVatTuSelected = this.data.listGiaVatTu[id];
@@ -236,13 +274,14 @@ export class DichVuDialogComponent implements OnInit {
     this.giaVatTu.ghiChu = giaVatTuSelected.ghiChu;
     this.trangThaiGiaVatTu = false;
   }
-  LuuGiaVatTu(){
+  LuuGiaVatTu() {
     this.data.listGiaVatTu[this.idSelected].tenVatTu = this.giaVatTu.tenVatTu;
     this.data.listGiaVatTu[this.idSelected].giaVatTu = this.giaVatTu.giaVatTu;
     this.data.listGiaVatTu[this.idSelected].DVT = this.giaVatTu.DVT;
     this.data.listGiaVatTu[this.idSelected].nhomVT = this.giaVatTu.nhomVT;
     this.data.listGiaVatTu[this.idSelected].phiDV = this.giaVatTu.phiDV;
-    this.data.listGiaVatTu[this.idSelected].trieuChung = this.giaVatTu.trieuChung;
+    this.data.listGiaVatTu[this.idSelected].trieuChung =
+      this.giaVatTu.trieuChung;
     this.data.listGiaVatTu[this.idSelected].baoHanhVT = this.giaVatTu.baoHanhVT;
     this.data.listGiaVatTu[this.idSelected].ghiChu = this.giaVatTu.ghiChu;
     this.trangThaiGiaVatTu = true;
@@ -250,7 +289,7 @@ export class DichVuDialogComponent implements OnInit {
   }
 
   //Gia cong tho
-  ClearGiaCongTho(){
+  ClearGiaCongTho() {
     this.giaCongTho.tenCongTho = '';
     this.giaCongTho.DVT = '';
     this.giaCongTho.giaCongTho = '';
@@ -269,10 +308,10 @@ export class DichVuDialogComponent implements OnInit {
     this.data.listGiaCongTho.push(newGiaCongTho);
     this.ClearGiaCongTho();
   }
-  XoaGiaCongTho(id: number){
-    this.data.listGiaCongTho.splice(id,1);
+  XoaGiaCongTho(id: number) {
+    this.data.listGiaCongTho.splice(id, 1);
   }
-  SuaGiaCongTho(id: number){
+  SuaGiaCongTho(id: number) {
     this.idSelected = id;
     let giaCongThoSelected: GiaCongTho;
     giaCongThoSelected = this.data.listGiaCongTho[id];
@@ -284,11 +323,14 @@ export class DichVuDialogComponent implements OnInit {
     this.giaCongTho.DVT2 = giaCongThoSelected.DVT2;
     this.trangThaiGiaCongTho = false;
   }
-  LuuGiaCongTho(){
-    this.data.listGiaCongTho[this.idSelected].tenCongTho = this.giaCongTho.tenCongTho;
+  LuuGiaCongTho() {
+    this.data.listGiaCongTho[this.idSelected].tenCongTho =
+      this.giaCongTho.tenCongTho;
     this.data.listGiaCongTho[this.idSelected].DVT = this.giaCongTho.DVT;
-    this.data.listGiaCongTho[this.idSelected].giaCongTho = this.giaCongTho.giaCongTho;
-    this.data.listGiaCongTho[this.idSelected].giaThayVT = this.giaCongTho.giaThayVT;
+    this.data.listGiaCongTho[this.idSelected].giaCongTho =
+      this.giaCongTho.giaCongTho;
+    this.data.listGiaCongTho[this.idSelected].giaThayVT =
+      this.giaCongTho.giaThayVT;
     this.data.listGiaCongTho[this.idSelected].phiDV = this.giaCongTho.phiDV;
     this.data.listGiaCongTho[this.idSelected].DVT2 = this.giaCongTho.DVT2;
     this.trangThaiGiaCongTho = true;
