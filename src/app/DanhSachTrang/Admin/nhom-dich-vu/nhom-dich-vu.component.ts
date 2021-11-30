@@ -18,8 +18,8 @@ import { Router } from '@angular/router';
 })
 export class NhomDichVuComponent implements OnInit {
   nhomDichVu: NhomDichVu = {
-    maNhomDV: 0,
-    name: '',
+    // maNhomDV: 0,
+    // name: '',
   };
   listNhomDichVu!: NhomDichVu[];
   constructor(
@@ -67,12 +67,16 @@ export class NhomDichVuComponent implements OnInit {
       data: {
         //maNhomDV: this.nhomDichVu.maNhomDV,
         name: this.nhomDichVu.name,
+        iconNameAngular: this.nhomDichVu.iconNameAngular,
+        iconNameReact: this.nhomDichVu.iconNameReact,
       },
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (this.checkTrung(result, this.listNhomDichVu)) {
         let newNhomDichVu: NhomDichVu = {};
         newNhomDichVu.name = result.name;
+        newNhomDichVu.iconNameAngular = result.iconNameAngular;
+        newNhomDichVu.iconNameReact = result.iconNameReact;
         newNhomDichVu.maNhomDV = this.MaNhomDichVuTuDongTang(
           this.listNhomDichVu
         );

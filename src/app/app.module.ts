@@ -6,6 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {
+  AngularFireStorageModule,
+  AngularFireStorageReference,
+  AngularFireUploadTask,
+  StorageBucket
+} from "@angular/fire/storage";
 import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
 
@@ -79,7 +85,8 @@ import { DatePipe } from '@angular/common';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase,"cloud"),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     FormsModule,

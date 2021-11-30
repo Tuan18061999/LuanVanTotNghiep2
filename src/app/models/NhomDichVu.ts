@@ -3,4 +3,5 @@ export interface NhomDichVu{
   maNhomDV?: number;
   name?: string;
   iconNameAngular?: string;
+  iconNameReact?: string;
 }

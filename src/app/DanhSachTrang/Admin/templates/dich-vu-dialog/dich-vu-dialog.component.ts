@@ -1,3 +1,4 @@
+import { FileUploadService } from './../../../../services/file-upload.service';
 import { GiaCongThoService } from './../../../../services/gia-cong-tho.service';
 import { GiaVatTuService } from './../../../../services/gia-vat-tu.service';
 import { GiaCongViecService } from './../../../../services/gia-cong-viec.service';
@@ -11,6 +12,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DichVu } from 'src/app/models/DichVu';
 import { GiaCongViec } from 'src/app/models/GiaCongViec';
 import { GiaCongTho } from 'src/app/models/GiaCongTho';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dich-vu-dialog',
@@ -31,10 +35,17 @@ export class DichVuDialogComponent implements OnInit {
   listGiaVatTuBanDau: GiaVatTu[] = [];
   listGiaCongThoBanDau: GiaCongTho[] = [];
 
+  //Cac bien cua file up anh
+  title = 'cloudsSorage';
+  selectedFile!: File;
+  fb: any;
+  downloadURL!: Observable<string>;
+
   @ViewChild('dauHieu') dauHieu: any;
   @ViewChild('moTa') moTa: any;
 
   //Cac bien cua form
+  trangThaiAnh: boolean = true;
   trangThaiNhanBiet: boolean = true;
   trangThaiGiaCongViec: boolean = true;
   trangThaiGiaVatTu: boolean = true;
@@ -43,6 +54,8 @@ export class DichVuDialogComponent implements OnInit {
 
   DialogRef: any;
   constructor(
+    private storage: AngularFireStorage,
+    public fileUploadService: FileUploadService,
     public nhanBietDichVuService: NhanBietDichVuService,
     public giaCongViecService: GiaCongViecService,
     public giaVatTuService: GiaVatTuService,
@@ -69,8 +82,8 @@ export class DichVuDialogComponent implements OnInit {
     if (this.data.listNhanBietDichVu == null) {
       //Khi moi tao chua co du lieu nen phai phai gan du lieu [] de xai ham push
       this.data.listNhanBietDichVu = [];
-    }else{
-      for(let nhanBiet of this.data.listNhanBietDichVu){
+    } else {
+      for (let nhanBiet of this.data.listNhanBietDichVu) {
         //Khi o trang thai sua, gan gia tri cho mang de giu lai gia tri ban dau
         this.listNhanBietDichVuBanDau.push(nhanBiet);
       }
@@ -78,26 +91,30 @@ export class DichVuDialogComponent implements OnInit {
 
     if (this.data.listGiaCongViec == null) {
       this.data.listGiaCongViec = [];
-    }else{
-      for(let giaCongViec of this.data.listGiaCongViec){
+    } else {
+      for (let giaCongViec of this.data.listGiaCongViec) {
         this.listGiaCongViecBanDau.push(giaCongViec);
       }
     }
 
     if (this.data.listGiaVatTu == null) {
       this.data.listGiaVatTu = [];
-    }else{
-      for(let giaVatTu of this.data.listGiaVatTu){
+    } else {
+      for (let giaVatTu of this.data.listGiaVatTu) {
         this.listGiaVatTuBanDau.push(giaVatTu);
       }
     }
 
     if (this.data.listGiaCongTho == null) {
       this.data.listGiaCongTho = [];
-    }else{
-      for(let giaCongTho of this.data.listGiaCongTho){
+    } else {
+      for (let giaCongTho of this.data.listGiaCongTho) {
         this.listGiaCongThoBanDau.push(giaCongTho);
       }
+    }
+
+    if(this.data.dichVu.imgDichVu == null){
+      this.trangThaiAnh = true;
     }
   }
   onNoClick() {
@@ -105,24 +122,21 @@ export class DichVuDialogComponent implements OnInit {
   }
   //Dung de xoa het du lieu truoc khi cap nhat du lieu moi
   XoaDuLieu() {
-    console.log('ban dau',this.listNhanBietDichVuBanDau);
-    console.log('sau khi chinh sau',this.data.listNhanBietDichVu);
-    for(let nhanBiet of this.listNhanBietDichVuBanDau){
-      this.nhanBietDichVuService.delete_NhanBietDichVu(this.data.dichVu,nhanBiet);
+    for (let nhanBiet of this.listNhanBietDichVuBanDau) {
+      this.nhanBietDichVuService.delete_NhanBietDichVu(
+        this.data.dichVu,
+        nhanBiet
+      );
     }
-    for(let giaCongViec of this.listGiaCongViecBanDau){
-      this.giaCongViecService.delete_GiaCongViec(this.data.dichVu,giaCongViec);
+    for (let giaCongViec of this.listGiaCongViecBanDau) {
+      this.giaCongViecService.delete_GiaCongViec(this.data.dichVu, giaCongViec);
     }
-    for(let giaVatTu of this.listGiaVatTuBanDau){
-      this.giaVatTuService.delete_GiaVatTu(this.data.dichVu,giaVatTu);
+    for (let giaVatTu of this.listGiaVatTuBanDau) {
+      this.giaVatTuService.delete_GiaVatTu(this.data.dichVu, giaVatTu);
     }
-    for(let giaCongTho of this.listGiaCongThoBanDau){
-      this.giaCongThoService.delete_GiaCongTho(this.data.dichVu,giaCongTho);
+    for (let giaCongTho of this.listGiaCongThoBanDau) {
+      this.giaCongThoService.delete_GiaCongTho(this.data.dichVu, giaCongTho);
     }
-    // this.nhanBietDichVuService.delete_AllNhanBietDichVu(this.data.dichVu);
-    // this.giaCongViecService.delete_AllGiaCongViec(this.data.dichVu);
-    // this.giaVatTuService.delete_AllGiaVatTu(this.data.dichVu);
-    // this.giaCongThoService.delete_AllGiaCongTho(this.data.dichVu);
   }
 
   ChuoiThanhMangNBDV(event: any) {
@@ -335,5 +349,39 @@ export class DichVuDialogComponent implements OnInit {
     this.data.listGiaCongTho[this.idSelected].DVT2 = this.giaCongTho.DVT2;
     this.trangThaiGiaCongTho = true;
     this.ClearGiaCongTho();
+  }
+
+  onFileSelected(event: any) {
+    this.upLoadImage(event);
+  }
+
+  upLoadImage(event: any) {
+    //n la ten cua anh se duoc luu tren storage
+    var currentTime = Date.now();
+    var fileName = event.target.files[0].name;
+    var n = fileName + currentTime;
+    const file = event.target.files[0];
+    console.log('loai file', file);
+    const filePath = `img-dv/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`img-dv/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe((url) => {
+            if (url) {
+              this.fb = url;
+              this.data.dichVu.imgDichVu = url;
+            }
+          });
+        })
+      )
+      .subscribe((url) => {
+        if (url) {
+          console.log('url', url);
+        }
+      });
   }
 }

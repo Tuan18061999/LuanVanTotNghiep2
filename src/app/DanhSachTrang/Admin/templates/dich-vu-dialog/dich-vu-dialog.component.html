@@ -7,9 +7,38 @@
   </mat-form-field>
   <br />
   <!-- Anh -->
-  <h3>File ảnh</h3>
-  <input [(ngModel)]="data.dichVu.imgDichVu" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+  <div *ngIf="this.trangThaiAnh; else showAnh">
+    <h3>File ảnh</h3>
+    <!-- <input [(ngModel)]="data.dichVu.imgDichVu" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" /> -->
+    <input
+      type="file"
+      id="file"
+      #userPhoto
+      (change)="onFileSelected($event)"
+      name="image"
+      autocomplete="off"
+      accept="image/png, image/jpeg"
+    />
+  </div>
+  <ng-template #showAnh>
+    <div>
+      <!-- <img style="width: 30%" src="{{ data.dichVu.imgDichVu }}" alt="" /> -->
+      <h1>hello</h1>
+    </div>
+  </ng-template>
   <br /><br />
+  <!-- <div *ngIf="trangThaiNhanBiet; else nutLuuNhanBiet">
+    <button mat-raised-button color="primary" (click)="ThemNhanBiet()">
+      THÊM
+    </button>
+  </div>
+  <ng-template #nutLuuNhanBiet>
+    <div>
+      <button mat-raised-button color="accent" (click)="LuuNhanBiet()">
+        LƯU
+      </button>
+    </div>
+  </ng-template> -->
 
   <!-- Loai dich vu -->
   <mat-form-field appearance="fill">
@@ -33,7 +62,8 @@
       (keyup)="ChuoiThanhMangMoTa($event)"
       matInput
       placeholder="Ví dụ: &#10;Dịch vụ giá cả phải chăng &#10;Dịch vụ uy tín chất lượng"
-    >{{data.dichVu.moTa?.join('\n')}}</textarea>
+      >{{ data.dichVu.moTa?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
 
@@ -45,7 +75,8 @@
       (keyup)="ChuoiThanhMangDanhSachSuaChua($event)"
       matInput
       placeholder="Ví dụ: &#10;Điều hòa một chiều &#10;Điều hòa hai chiều"
-    >{{data.dichVu.danhSachSuaChua?.join('\n')}}</textarea>
+      >{{ data.dichVu.danhSachSuaChua?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
 
@@ -57,7 +88,8 @@
       (keyup)="ChuoiThanhMangDanhSachDV($event)"
       matInput
       placeholder="Ví dụ: &#10;Sửa chữa rò rỉ đường ống nước &#10;Lắp đặt đường ống nước"
-    >{{data.dichVu.danhSachDV?.join('\n')}}</textarea>
+      >{{ data.dichVu.danhSachDV?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
 
@@ -69,7 +101,8 @@
       (keyup)="ChuoiThanhMangLyDoCanSua($event)"
       matInput
       placeholder="Nêu ra các nguyên nhân khiến người dùng muốn sử dụng dịch vụ"
-    >{{data.dichVu.lyDoCanSua?.join('\n')}}</textarea>
+      >{{ data.dichVu.lyDoCanSua?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
   <!-- Nhan biet dich vu  -->
@@ -449,7 +482,8 @@
       (keyup)="ChuoiThanhMangCamKet($event)"
       matInput
       placeholder="Nêu ra các cam kết"
-    >{{data.dichVu.camKet?.join('\n')}}</textarea>
+      >{{ data.dichVu.camKet?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
   <!-- Luu y -->
@@ -460,7 +494,8 @@
       (keyup)="ChuoiThanhMangLuuY($event)"
       matInput
       placeholder="Nêu ra các lưu ý"
-    >{{data.dichVu.luuY?.join('\n')}}</textarea>
+      >{{ data.dichVu.luuY?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
   <!-- Ghi chu su dung -->
@@ -471,7 +506,8 @@
       (keyup)="ChuoiThanhMangGhiChuSuDung($event)"
       matInput
       placeholder="Nêu ra các ghi chú khi sử dụng"
-    >{{data.dichVu.ghiChuSuDung?.join('\n')}}</textarea>
+      >{{ data.dichVu.ghiChuSuDung?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
   <!-- Tieu chi dich vu -->
@@ -482,7 +518,8 @@
       (keyup)="ChuoiThanhMangTieuChiDV($event)"
       matInput
       placeholder="Nêu ra các tiêu chí của dịch vụ"
-    >{{data.dichVu.tieuChiDV?.join('\n')}}</textarea>
+      >{{ data.dichVu.tieuChiDV?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
   <!-- Quy trinh tiep nhan -->
@@ -493,7 +530,8 @@
       (keyup)="ChuoiThanhMangQuyTrinhTiepNhan($event)"
       matInput
       placeholder="Nêu ra quy trình tiếp nhận của dịch vụ"
-    >{{data.dichVu.quyTrinhTiepNhan?.join('\n')}}</textarea>
+      >{{ data.dichVu.quyTrinhTiepNhan?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
   <!-- Quy trinh bao duong -->
@@ -504,7 +542,8 @@
       (keyup)="ChuoiThanhMangQuyTrinhBD($event)"
       matInput
       placeholder="Nêu ra quy trình bảo dưỡng của dịch vụ"
-    >{{data.dichVu.quyTrinhBD?.join('\n')}}</textarea>
+      >{{ data.dichVu.quyTrinhBD?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
   <!-- Luu y su dung  -->
@@ -515,11 +554,19 @@
       (keyup)="ChuoiThanhMangLuuYSuDung($event)"
       matInput
       placeholder="Nêu ra các lưu ý khi sử dụng dịch vụ"
-    >{{data.dichVu.luuYSuDung?.join('\n')}}</textarea>
+      >{{ data.dichVu.luuYSuDung?.join("\n") }}</textarea
+    >
   </mat-form-field>
   <br />
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="XoaDuLieu()">OK</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="XoaDuLieu()"
+  >
+    OK
+  </button>
 </mat-dialog-actions>

@@ -15,6 +15,8 @@ export class NhomDichVuDialogComponent implements OnInit {
       id: string;
       //maNhomDV: string;
       name: string;
+      iconNameAngular: string;
+      iconNameReact: string;
     }
   ) {
     this.DialogRef = dialogRef;
@@ -25,6 +27,12 @@ export class NhomDichVuDialogComponent implements OnInit {
 
   onNoClick() {
     this.DialogRef.close();
+  }
+  GoToIconAngular(){
+    window.open("https://fonts.google.com/icons");
+  }
+  GoToIconReact(){
+    window.open("https://oblador.github.io/react-native-vector-icons/");
   }
 
 }

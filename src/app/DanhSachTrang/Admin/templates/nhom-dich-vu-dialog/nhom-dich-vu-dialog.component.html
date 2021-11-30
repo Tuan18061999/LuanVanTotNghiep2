@@ -4,6 +4,17 @@
     <mat-label>Tên nhóm dịch vụ</mat-label>
     <input matInput [(ngModel)]="data.name">
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Tên icon cho Website</mat-label>
+    <input matInput [(ngModel)]="data.iconNameAngular">
+  </mat-form-field>
+  <button (click)="GoToIconAngular()" mat-raised-button color="primary">Xem icon cho Website</button>
+  <br><br>
+  <mat-form-field appearance="fill">
+    <mat-label>Tên icon cho App</mat-label>
+    <input matInput [(ngModel)]="data.iconNameReact">
+  </mat-form-field>
+  <button (click)="GoToIconReact()" mat-raised-button color="primary">Xem icon cho App</button>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">Cancel</button>

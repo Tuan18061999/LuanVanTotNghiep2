@@ -25,6 +25,7 @@ export class ThongKeComponent implements OnInit {
   listNameNhomDichVu: string[] = [];
   listMaNhomDangKyDichVu: string[] = [];
   listSoLuongDangKyNhomDichvu: number[] = [];
+  listSoLuongDichVuCuaNhom: number[] = [];
 
   listDichVu: DichVu[] = [];
   constructor(
@@ -32,7 +33,9 @@ export class ThongKeComponent implements OnInit {
     public partnerService: PartnerService,
     public nhomDichVuService: NhomDichVuService,
     public dichVuService: DichVuService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     for (let i = 7; i >= 0; i--) {
       let new_date = new Date(new Date().getTime() - i * 24 * 60 * 60 * 1000);
       let item_date = this.datepipe.transform(new_date, 'dd-MM-yyyy');
@@ -99,27 +102,41 @@ export class ThongKeComponent implements OnInit {
         listTamThoi = [...new Set(listTamThoi)];
 
         for (let num of listTamThoi) {
+          //Chua cac ma nhom dang ky dich vu cua tung khach hang
           this.listMaNhomDangKyDichVu.push(num);
         }
       }
 
-
       for (let nhomDV of this.listNhomDichVu) {
         let count = 0;
         for (let ma of this.listMaNhomDangKyDichVu) {
-          if(ma == nhomDV.maNhomDV?.toString()){
+          if (ma == nhomDV.maNhomDV?.toString()) {
             count++;
           }
         }
         this.listSoLuongDangKyNhomDichvu.push(count);
       }
-      console.log(this.listNameNhomDichVu);
-      console.log(this.listMaNhomDangKyDichVu);
-      console.log(this.listSoLuongDangKyNhomDichvu);
+
+      //Tao du lieu cho pie chart so luong dich vu co trong moi nhom
+      // console.log('nhomDV', this.listNhomDichVu);
+      // console.log('DV', this.listDichVu);
+      for (let nhomDV of this.listNhomDichVu) {
+
+        let count = 0;
+        for(let dichVu of this.listDichVu){
+
+          if(dichVu.maNhomDV == nhomDV.maNhomDV?.toString()){
+            console.log('nhomDV', nhomDV);
+            console.log('DV',dichVu);
+            count++;
+          }
+        }
+        console.log('count',count)
+        this.listSoLuongDichVuCuaNhom.push(count);
+        // console.log('lst dang ky',this.listSoLuongDangKyNhomDichvu);
+      }
     });
   }
-
-  ngOnInit(): void {}
 
   // Cac du lieu thong ke cua khach hang
   chartData = [
@@ -168,6 +185,7 @@ export class ThongKeComponent implements OnInit {
   public pieChartLabels: Label[] = this.listNameNhomDichVu;
   // public pieChartData: number[] = [300, 500, 100,100,100,100];
   public pieChartData: number[] = this.listSoLuongDangKyNhomDichvu;
+  public pieChartDataSumServiceOfGroup: number[] = this.listSoLuongDichVuCuaNhom;
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
 

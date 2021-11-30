@@ -74,10 +74,12 @@ export class DichVuComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('url image dich vu',result.dichVu.imgDichVu)
       let newDichVu: DichVu = {};
       newDichVu.id = this.MaDichVuTuDongTang(this.listDichVu);
-      newDichVu.imgDichVu =
-        'https://firebasestorage.googleapis.com/v0/b/kltn-c4719.appspot.com/o/img-dv%2Fdichvu1.jpg?alt=media&token=25935dbe-fa76-4ef2-8e4a-9ee29079d3f1';
+      // newDichVu.imgDichVu =
+      //   'https://firebasestorage.googleapis.com/v0/b/kltn-c4719.appspot.com/o/img-dv%2Fdichvu1.jpg?alt=media&token=25935dbe-fa76-4ef2-8e4a-9ee29079d3f1';
+      newDichVu.imgDichVu = result.dichVu.imgDichVu;
       newDichVu.maNhomDV = result.dichVu.maNhomDV;
       newDichVu.tenDV = result.dichVu.tenDV;
       newDichVu.camKet = result.dichVu.camKet;
