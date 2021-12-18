@@ -2,7 +2,7 @@
   <div class="page__box p-3 mt-2">Thống kê</div>
   <div class="page__content shadow p-3 position-relative">
     <mat-accordion>
-      <mat-expansion-panel hideToggle>
+      <mat-expansion-panel hideToggle [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>KHÁCH HÀNG</mat-panel-title>
           <mat-panel-description>
@@ -15,7 +15,7 @@
     </mat-accordion>
     <br />
     <mat-accordion>
-      <mat-expansion-panel hideToggle>
+      <mat-expansion-panel hideToggle [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>ĐỐI TÁC</mat-panel-title>
           <mat-panel-description>
@@ -64,7 +64,7 @@
     </mat-accordion>
     <br />
     <mat-accordion>
-      <mat-expansion-panel hideToggle>
+      <mat-expansion-panel hideToggle [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>NHÓM DỊCH VỤ</mat-panel-title>
           <mat-panel-description>
@@ -101,6 +101,57 @@
                   [options]="pieChartOptions"
                   [colors]="pieChartColors"
                   [legend]="pieChartLegend"
+                >
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
+
+    <mat-accordion>
+      <mat-expansion-panel hideToggle [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>ĐƠN HÀNG</mat-panel-title>
+          <mat-panel-description>
+            Các thông tin thống kê của đơn hàng
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Phan noi dung o day -->
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Số lượng đơn hàng từng ngày</h3>
+              <div style="width: 70%">
+                <canvas
+                  baseChart
+                  [chartType]="'line'"
+                  [legend]="true"
+                  [datasets]="chartDataLineOrder"
+                  [labels]="chartLabels"
+                  [options]="chartOptions"
+                  [legend]="true"
+                >
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Tổng thu nhập hằng ngày</h3>
+              <div style="width: 70%">
+                <canvas
+                  baseChart
+                  [chartType]="'line'"
+                  [legend]="true"
+                  [datasets]="chartDataLineIncomeOrder"
+                  [labels]="chartLabels"
+                  [options]="chartOptions"
+                  [legend]="true"
                 >
                 </canvas>
               </div>

@@ -16,6 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DanhMucDichVuComponent } from './DanhSachTrang/danh-muc-dich-vu/danh-muc-dich-vu.component';
 import { TrangChuComponent } from './DanhSachTrang/trang-chu/trang-chu.component';
 import { AdminComponent } from './DanhSachTrang/Admin/admin/admin.component';
+import { OrderComponent } from './DanhSachTrang/Admin/order/order.component';
 
 const routes: Routes = [
   { path: 'trangchu', component: TrangChuComponent },
@@ -75,6 +76,10 @@ const routes: Routes = [
       {
         path: 'thong-ke',
         component: ThongKeComponent,
+      },
+      {
+        path: 'don-hang',
+        component: OrderComponent,
       },
     ],
   },

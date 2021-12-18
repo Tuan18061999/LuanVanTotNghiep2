@@ -1,0 +1,32 @@
+<div class="container-fluid page">
+  <div class="page__box p-3 mt-2">Đơn hàng</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 10%">STT</th>
+            <th scope="col" style="width: 25%">Tên đơn hàng</th>
+            <th scope="col" style="width: 25%">Tình trạng</th>
+            <th scope="col" style="width: 20%">Ngày đặt</th>
+            <th style="width: 20%">Khách hàng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ order.name }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.dmyOrder }}</td>
+            <td>{{ order.ordererName }}</td>
+            <!-- <td>
+              <button mat-raised-button color="primary" style="height: 30px">
+                CHI TIẾT
+              </button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

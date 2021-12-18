@@ -3,31 +3,131 @@
   <div class="page__content shadow p-3 position-relative">
     <div class="row">
       <div class="col-md-4">
-        <mat-list style="margin-right: 20px;background-color:thistle;">
+        <mat-list style="background-color: thistle">
           <mat-list-item>
             <mat-icon mat-list-icon>people</mat-icon>
             <div mat-line>KHÁCH HÀNG</div>
-            <div mat-line>{{this.listUser.length}}</div>
+            <div mat-line>{{ this.listUser.length }}</div>
           </mat-list-item>
         </mat-list>
       </div>
       <div class="col-md-4">
-        <mat-list style="margin-right: 20px;background-color:thistle;">
+        <mat-list style="background-color: thistle">
           <mat-list-item>
             <mat-icon mat-list-icon>engineering</mat-icon>
             <div mat-line>ĐỐI TÁC</div>
-            <div mat-line>{{this.listPartner.length}}</div>
+            <div mat-line>{{ this.listPartner.length }}</div>
           </mat-list-item>
         </mat-list>
       </div>
       <div class="col-md-4">
-        <mat-list style="margin-right: 20px;background-color:thistle;">
+        <mat-list style="background-color: thistle">
           <mat-list-item>
             <mat-icon mat-list-icon>settings</mat-icon>
             <div mat-line>DỊCH VỤ</div>
-            <div mat-line>{{this.listDichVu.length}}</div>
+            <div mat-line>{{ this.listDichVu.length }}</div>
           </mat-list-item>
         </mat-list>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          (click)="GoToAdmin()"
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          [matRippleCentered]="false"
+          [matRippleDisabled]="false"
+          [matRippleUnbounded]="false"
+          [matRippleColor]="'pink'"
+        >
+          <mat-icon>admin_panel_settings</mat-icon> Quản trị viên
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          (click)="GoToUser()"
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          [matRippleCentered]="false"
+          [matRippleDisabled]="false"
+          [matRippleUnbounded]="false"
+          [matRippleColor]="'pink'"
+        >
+          <mat-icon>people</mat-icon> Khách hàng
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          (click)="GoToGroupService()"
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          [matRippleCentered]="false"
+          [matRippleDisabled]="false"
+          [matRippleUnbounded]="false"
+          [matRippleColor]="'pink'"
+        >
+          <mat-icon>toc</mat-icon> Nhóm dịch vụ
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          (click)="GoToService()"
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          [matRippleCentered]="false"
+          [matRippleDisabled]="false"
+          [matRippleUnbounded]="false"
+          [matRippleColor]="'pink'"
+        >
+          <mat-icon>settings</mat-icon> Dịch vụ
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          (click)="GoToPartner()"
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          [matRippleCentered]="false"
+          [matRippleDisabled]="false"
+          [matRippleUnbounded]="false"
+          [matRippleColor]="'pink'"
+        >
+          <mat-icon>engineering</mat-icon> Đối tác
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          (click)="GoToOrder()"
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          [matRippleCentered]="false"
+          [matRippleDisabled]="false"
+          [matRippleUnbounded]="false"
+          [matRippleColor]="'pink'"
+        >
+          <mat-icon>description</mat-icon> Đơn hàng
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          (click)="GoToAnalyst()"
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          [matRippleCentered]="false"
+          [matRippleDisabled]="false"
+          [matRippleUnbounded]="false"
+          [matRippleColor]="'pink'"
+        >
+          <mat-icon>bar_chart</mat-icon> Thống kê
+        </div>
       </div>
     </div>
   </div>

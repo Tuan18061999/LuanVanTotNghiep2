@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Yêu cầu thay đổi dịch vụ từ đối tác</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-list>
+          <div mat-subheader>Dịch vụ cũ</div>
+          <mat-list-item *ngFor="let oldService of data.partner.choicesServiceList">
+            <mat-icon mat-list-icon>construction</mat-icon>
+            <div mat-line>{{ oldService }}</div>
+          </mat-list-item>
+        </mat-list>
+
+      </div>
+      <div class="col-md-6">
+        <mat-list>
+          <div mat-subheader>Dịch vụ đăng ký mới</div>
+          <mat-list-item *ngFor="let newService of data.request.listService">
+            <mat-icon mat-list-icon>construction</mat-icon>
+            <div mat-line>{{ newService }}</div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+    </div>
+  </div>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

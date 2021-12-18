@@ -48,6 +48,8 @@ import { PartnerDialogComponent } from './DanhSachTrang/Admin/templates/partner-
 import { ChartsModule } from 'ng2-charts';
 import { ThongKeComponent } from './DanhSachTrang/Admin/thong-ke/thong-ke.component';
 import { DatePipe } from '@angular/common';
+import { PartnerRequestDialogComponent } from './DanhSachTrang/Admin/templates/partner-request-dialog/partner-request-dialog.component';
+import { OrderComponent } from './DanhSachTrang/Admin/order/order.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { DatePipe } from '@angular/common';
     PartnerComponent,
     PartnerDialogComponent,
     ThongKeComponent,
+    PartnerRequestDialogComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

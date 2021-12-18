@@ -5,6 +5,7 @@ import { PartnerService } from './../../../services/partner.service';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { DichVu } from 'src/app/models/DichVu';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public userService: UserService,
     public partnerService: PartnerService,
-    public dichVuService: DichVuService
+    public dichVuService: DichVuService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -32,5 +34,26 @@ export class HomeComponent implements OnInit {
     this.dichVuService.get_AllDichVu().subscribe(data => {
       this.listDichVu = data;
     })
+  }
+  GoToAdmin(){
+    this.router.navigate(['/admin/admin-account']);
+  }
+  GoToUser(){
+    this.router.navigate(['/admin/user']);
+  }
+  GoToGroupService(){
+    this.router.navigate(['/admin/nhom-dich-vu']);
+  }
+  GoToService(){
+    this.router.navigate(['/admin/dich-vu']);
+  }
+  GoToPartner(){
+    this.router.navigate(['/admin/partner']);
+  }
+  GoToOrder(){
+    this.router.navigate(['/admin/don-hang']);
+  }
+  GoToAnalyst(){
+    this.router.navigate(['/admin/thong-ke']);
   }
 }

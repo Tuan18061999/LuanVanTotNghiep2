@@ -1,8 +1,10 @@
 <div class="container-fluid page">
   <div class="page__box p-3 mt-2">Partner</div>
   <div class="page__content shadow p-3 position-relative">
-
-    <mat-accordion matBadge={{waitingPartners.length}} matBadgeOverlap="false">
+    <mat-accordion
+      matBadge="{{ waitingPartners.length }}"
+      matBadgeOverlap="false"
+    >
       <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>Tài khoản đăng ký</mat-panel-title>
@@ -15,32 +17,106 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col" style="width: 20%;">Name</th>
-              <th scope="col" style="width: 25%;">Password</th>
-              <th scope="col" style="width: 25%;">Phone</th>
-              <th scope="col" style="width: 30%;"></th>
+              <th scope="col" style="width: 20%">Name</th>
+              <th scope="col" style="width: 25%">Password</th>
+              <th scope="col" style="width: 25%">Phone</th>
+              <th scope="col" style="width: 30%"></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let partner of waitingPartners">
-              <td>{{partner.name}}</td>
-              <td>{{partner.password}}</td>
-              <td>{{partner.phone}}</td>
+              <td>{{ partner.name }}</td>
+              <td>{{ partner.password }}</td>
+              <td>{{ partner.phone }}</td>
               <td>
-                <button (click)="PartnerDetail($event,partner)" mat-raised-button color="primary" style="height: 30px; " >
+                <button
+                  (click)="PartnerDetail($event, partner)"
+                  mat-raised-button
+                  color="primary"
+                  style="height: 30px"
+                >
                   CHI TIẾT
                 </button>
-                <button (click)="ConfirmWaitingPartner(partner)" mat-raised-button color="warn" style="height: 30px; margin-left: 15px;" >
+                <button
+                  (click)="ConfirmWaitingPartner(partner)"
+                  mat-raised-button
+                  color="warn"
+                  style="height: 30px; margin-left: 15px"
+                >
                   DUYỆT
                 </button>
-                <button (click)="DeletePartner($event,partner)"  mat-raised-button color="accent" style="height: 30px; margin-left: 15px;" >
+                <button
+                  (click)="DeletePartner($event, partner)"
+                  mat-raised-button
+                  color="accent"
+                  style="height: 30px; margin-left: 15px"
+                >
                   XÓA
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
 
+    <mat-accordion
+      matBadge="{{ listPartnerByRequest.length }}"
+      matBadgeOverlap="false"
+    >
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Thay đổi dịch vụ</mat-panel-title>
+          <mat-panel-description>
+            Các đối tác yêu cầu thay đổi dịch vụ cung cấp
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Phan noi dung o day -->
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 10%">STT</th>
+              <th scope="col" style="width: 25%">Name</th>
+              <th scope="col" style="width: 35%">Phone</th>
+              <th scope="col" style="width: 30%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let partner of listPartnerByRequest; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ partner.name }}</td>
+              <td>{{ partner.phone }}</td>
+              <td>
+                <button
+                  (click)="PartnerRequestDetail($event, partner)"
+                  mat-raised-button
+                  color="primary"
+                  style="height: 30px"
+                >
+                  YÊU CẦU
+                </button>
+                <button
+                  (click)="ConfirmRequestPartner(partner)"
+                  mat-raised-button
+                  color="warn"
+                  style="height: 30px; margin-left: 15px"
+                >
+                  DUYỆT
+                </button>
+                <button
+                  (click)=" DeleteRequestPartner($event, partner)"
+                  mat-raised-button
+                  color="accent"
+                  style="height: 30px; margin-left: 15px"
+                >
+                  XÓA
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </mat-expansion-panel>
     </mat-accordion>
     <br />
@@ -58,35 +134,56 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col" style="width: 20%;">Name</th>
-              <th scope="col" style="width: 25%;">Password</th>
-              <th scope="col" style="width: 25%;">Phone</th>
-              <th scope="col" style="width: 30%;"></th>
+              <th scope="col" style="width: 20%">Name</th>
+              <th scope="col" style="width: 25%">Password</th>
+              <th scope="col" style="width: 25%">Phone</th>
+              <th scope="col" style="width: 30%"></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let partner of confirmPartners">
-              <td>{{partner.name}}</td>
-              <td>{{partner.password}}</td>
-              <td>{{partner.phone}}</td>
+              <td>{{ partner.name }}</td>
+              <td>{{ partner.password }}</td>
+              <td>{{ partner.phone }}</td>
               <td>
-                <button (click)="PartnerDetail($event,partner)" mat-raised-button color="primary" style="height: 30px; " >
+                <button
+                  (click)="PartnerDetail($event, partner)"
+                  mat-raised-button
+                  color="primary"
+                  style="height: 30px"
+                >
                   CHI TIẾT
                 </button>
-                <button (click)="DeletePartner($event,partner)" mat-raised-button color="warn" style="height: 30px; margin-left: 15px;" >
+                <button
+                  (click)="DeletePartner($event, partner)"
+                  mat-raised-button
+                  color="warn"
+                  style="height: 30px; margin-left: 15px"
+                >
                   XÓA
                 </button>
                 <!-- <button *ngIf="CheckStatus(partner); else nutMo" mat-raised-button color="accent" style="height: 30px; margin-left: 15px;" >
                   KHÓA
                 </button> -->
-                <button (click)="LockAccount(partner)" *ngIf="CheckStatus(partner); else nutMo" style="height: 30px; margin-left: 15px;" mat-icon-button aria-label="Example icon-button with a heart icon">
+                <button
+                  (click)="LockAccount(partner)"
+                  *ngIf="CheckStatus(partner); else nutMo"
+                  style="height: 30px; margin-left: 15px"
+                  mat-icon-button
+                  aria-label="Example icon-button with a heart icon"
+                >
                   <mat-icon>lock_open</mat-icon>
                 </button>
                 <ng-template #nutMo>
                   <!-- <button mat-raised-button color="accent" style="height: 30px; margin-left: 15px;" >
                     MỞ
                   </button> -->
-                  <button style="height: 30px; margin-left: 15px;" (click)="OpenAccount(partner)" mat-icon-button aria-label="Example icon-button with a heart icon">
+                  <button
+                    style="height: 30px; margin-left: 15px"
+                    (click)="OpenAccount(partner)"
+                    mat-icon-button
+                    aria-label="Example icon-button with a heart icon"
+                  >
                     <mat-icon>lock</mat-icon>
                   </button>
                 </ng-template>
@@ -94,10 +191,7 @@
             </tr>
           </tbody>
         </table>
-
       </mat-expansion-panel>
     </mat-accordion>
+  </div>
 </div>
-
-
-

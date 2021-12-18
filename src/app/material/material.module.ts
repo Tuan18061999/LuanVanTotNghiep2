@@ -18,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatRippleModule} from '@angular/material/core';
 const MaterialComponents = [
   MatButtonModule,
   MatGridListModule,
@@ -37,7 +38,8 @@ const MaterialComponents = [
   MatInputModule,
   MatExpansionModule,
   MatSelectModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatRippleModule
 ]
 
 @NgModule({

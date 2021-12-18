@@ -1,3 +1,5 @@
+import { OrderService } from './../../../services/order.service';
+import { Orders } from './../../../models/Orders';
 import { DichVuService } from './../../../services/dich-vu.service';
 import { DichVu } from './../../../models/DichVu';
 import { NhomDichVuService } from './../../../services/nhom-dich-vu.service';
@@ -27,12 +29,18 @@ export class ThongKeComponent implements OnInit {
   listSoLuongDangKyNhomDichvu: number[] = [];
   listSoLuongDichVuCuaNhom: number[] = [];
 
+  listOrder: Orders[] = [];
+  listCountOrderCompleted: number[] = [];
+  listCountOrderCancel: number[] = [];
+  listSumIncomeOrder: number[] = [];
+
   listDichVu: DichVu[] = [];
   constructor(
     public datepipe: DatePipe,
     public partnerService: PartnerService,
     public nhomDichVuService: NhomDichVuService,
-    public dichVuService: DichVuService
+    public dichVuService: DichVuService,
+    public orderService: OrderService,
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +106,7 @@ export class ThongKeComponent implements OnInit {
           }
           listTamThoi.push(choice);
         }
-
+        //Xoa bo cac phan tu bi trung
         listTamThoi = [...new Set(listTamThoi)];
 
         for (let num of listTamThoi) {
@@ -126,16 +134,52 @@ export class ThongKeComponent implements OnInit {
         for(let dichVu of this.listDichVu){
 
           if(dichVu.maNhomDV == nhomDV.maNhomDV?.toString()){
-            console.log('nhomDV', nhomDV);
-            console.log('DV',dichVu);
+            // console.log('nhomDV', nhomDV);
+            // console.log('DV',dichVu);
             count++;
           }
         }
-        console.log('count',count)
+        // console.log('count',count)
         this.listSoLuongDichVuCuaNhom.push(count);
         // console.log('lst dang ky',this.listSoLuongDangKyNhomDichvu);
       }
     });
+
+    //Phan xu ly cho Don Hang
+    //Data(dem so don cua tung loai don moi ngay(Don dang cho, don da hoan tat, don da huy))
+    this.orderService.get_AllOrder().subscribe(data =>{
+      let listOrderFromServer: Orders[] = data;
+      for(let order of listOrderFromServer){
+        this.listOrder.push(order);
+      }
+      for (let date of this.listNameSevenDay) {
+
+        let countCompleted = 0;
+        let countCancel = 0;
+        let sumIncome = 0;
+        for (let order of this.listOrder) {
+          if (order.dmyOrder!.replace(/\s/g, '') == date && order.status == "Đã hủy") {
+            countCancel++;
+          }
+          if (order.dmyOrder!.replace(/\s/g, '') == date && order.status == "Đã hoàn tất") {
+            countCompleted++;
+          }
+          if (order.dmyOrder!.replace(/\s/g, '') == date) {
+            if(order.priceInfor?.FinalPrice != undefined){
+              sumIncome+=(order.priceInfor?.FinalPrice * 0.15);
+            }
+          }
+        }
+
+        this.listCountOrderCompleted.push(countCompleted);
+        this.listCountOrderCancel.push(countCancel);
+        this.listSumIncomeOrder.push(sumIncome);
+      }
+
+      console.log('complete',this.listCountOrderCompleted);
+      console.log('cancel',this.listSumIncomeOrder);
+    });
+
   }
 
   // Cac du lieu thong ke cua khach hang
@@ -199,6 +243,25 @@ export class ThongKeComponent implements OnInit {
         'rgba(255, 255, 138, 1)',
         'rgba(110, 255, 249, 1)',
       ],
+    },
+  ];
+
+  //Cac du lieu thong ke cua Don hang
+  chartDataLineOrder = [
+    {
+      data: this.listCountOrderCancel,
+      label: 'Đã hủy',
+    },
+    {
+      data: this.listCountOrderCompleted,
+      label: 'Đã hoàn tất',
+    },
+  ];
+
+  chartDataLineIncomeOrder = [
+    {
+      data: this.listSumIncomeOrder,
+      label: 'Thu nhập',
     },
   ];
 }
