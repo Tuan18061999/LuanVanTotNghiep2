@@ -22,8 +22,9 @@
   </div>
   <ng-template #showAnh>
     <div>
-      <!-- <img style="width: 30%" src="{{ data.dichVu.imgDichVu }}" alt="" /> -->
-      <h1>hello</h1>
+       <h3>File ảnh</h3>
+      <img style="height: 50px" src="{{ data.dichVu.imgDichVu }}" alt="" />
+      <button (click)="ChangeImageStatus()" mat-raised-button color="primary" style="margin-left: 30px">Thay đổi ảnh</button>
     </div>
   </ng-template>
   <br /><br />

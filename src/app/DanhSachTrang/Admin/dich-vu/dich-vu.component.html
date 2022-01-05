@@ -18,7 +18,7 @@
           <tr *ngFor="let dichVu of listDichVu">
             <td>{{ dichVu.tenDV }}</td>
             <td>
-              <img style="width: 30%" src="{{ dichVu.imgDichVu }}" alt="" />
+              <img style="width: 30%; height: 50px;" src="{{ dichVu.imgDichVu }}" alt="" />
             </td>
             <td>
               <button mat-raised-button color="primary" style="height: 30px" (click)="ChiTietDichVu(dichVu)">

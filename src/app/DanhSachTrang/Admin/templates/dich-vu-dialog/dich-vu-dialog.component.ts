@@ -113,9 +113,12 @@ export class DichVuDialogComponent implements OnInit {
       }
     }
 
-    if(this.data.dichVu.imgDichVu == null){
-      this.trangThaiAnh = true;
+    if(this.data.dichVu.imgDichVu != null){
+      //Anh da co nen chuyen trang thai bang false. Khong cho chinh sua. Neu muon chinh sua
+      //phai nhan vao nut chinh sua
+      this.trangThaiAnh = false;
     }
+
   }
   onNoClick() {
     this.DialogRef.close();
@@ -383,5 +386,8 @@ export class DichVuDialogComponent implements OnInit {
           console.log('url', url);
         }
       });
+  }
+  ChangeImageStatus(){
+    this.trangThaiAnh = true;
   }
 }
