@@ -25,7 +25,7 @@ export class NhomDichVuComponent implements OnInit {
   constructor(
     public nhomDichVuService: NhomDichVuService,
     public dialog: MatDialog,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -93,15 +93,13 @@ export class NhomDichVuComponent implements OnInit {
       data: {
         id: nhomDichVu.id,
         name: nhomDichVu.name,
+        iconNameAngular: nhomDichVu.iconNameAngular,
+        iconNameReact: nhomDichVu.iconNameReact,
       },
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (this.checkTrung(result, this.listNhomDichVu)) {
-        this.nhomDichVuService.update_NhomDichVu(result);
-        this.router.navigate(['/admin/nhom-dich-vu']);
-      } else {
-        const dialogRef = this.dialog.open(TrungDuLieuDialogComponent);
-      }
+      this.nhomDichVuService.update_NhomDichVu(result);
+      this.router.navigate(['/admin/nhom-dich-vu']);
     });
   }
 }

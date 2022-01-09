@@ -50,6 +50,7 @@ import { ThongKeComponent } from './DanhSachTrang/Admin/thong-ke/thong-ke.compon
 import { DatePipe } from '@angular/common';
 import { PartnerRequestDialogComponent } from './DanhSachTrang/Admin/templates/partner-request-dialog/partner-request-dialog.component';
 import { OrderComponent } from './DanhSachTrang/Admin/order/order.component';
+import { LockPartnerDialogComponent } from './DanhSachTrang/Admin/templates/lock-partner-dialog/lock-partner-dialog.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { OrderComponent } from './DanhSachTrang/Admin/order/order.component';
     ThongKeComponent,
     PartnerRequestDialogComponent,
     OrderComponent,
+    LockPartnerDialogComponent,
   ],
   imports: [
     BrowserModule,
